@@ -17,6 +17,11 @@ Helis\SettingsManagerBundle\Model\SettingModel:
             name: type
             type: setting_type_enum
             nullable: false
+        typeOptions:
+            name: type_options
+            type: json
+            nullable: true
+            unique: false
         data:
             name: data
             type: json
