@@ -53,38 +53,35 @@ class SettingFormType extends AbstractType
                 return;
             }
 
+            $options = [
+                'translation_domain' => 'HelisSettingsManager',
+                'label'              => 'edit.form.is_enabled'
+            ];
+
             if ($model->getType()->equals(Type::BOOL())) {
                 $event
                     ->getForm()
-                    ->add('data', CheckboxType::class, [
-                        'translation_domain' => 'HelisSettingsManager',
-                        'label' => 'edit.form.is_enabled',
+                    ->add('data', CheckboxType::class, array_merge($options, [
                         'required' => false,
-                    ]);
+                    ], $model->getTypeOptions()));
             } elseif ($model->getType()->equals(Type::INT())) {
                 $event
                     ->getForm()
-                    ->add('data', IntegerType::class, [
-                        'translation_domain' => 'HelisSettingsManager',
-                        'label' => 'edit.form.value',
+                    ->add('data', IntegerType::class, array_merge($options, [
                         'scale' => 0,
-                    ]);
+                    ], $model->getTypeOptions()));
             } elseif ($model->getType()->equals(Type::FLOAT())) {
                 $event
                     ->getForm()
-                    ->add('data', NumberType::class, [
-                        'translation_domain' => 'HelisSettingsManager',
-                        'label' => 'edit.form.value',
+                    ->add('data', NumberType::class, array_merge($options, [
                         'scale' => 2,
-                    ]);
+                    ], $model->getTypeOptions()));
             } elseif ($model->getType()->equals(Type::YAML())) {
                 $event
                     ->getForm()
-                    ->add('data', YamlType::class, [
-                        'translation_domain' => 'HelisSettingsManager',
-                        'label' => 'edit.form.value',
+                    ->add('data', YamlType::class, array_merge($options, [
                         'attr' => ['rows' => 12],
-                    ]);
+                    ], $model->getTypeOptions()));
             } elseif ($model->getType()->equals(Type::CHOICE())) {
                 $choices = [];
                 foreach (array_flip($model->getChoices()) as $label => $value) {
@@ -96,20 +93,16 @@ class SettingFormType extends AbstractType
                 }
                 $event
                     ->getForm()
-                    ->add('data', ChoiceType::class, [
-                        'translation_domain' => 'HelisSettingsManager',
-                        'label' => 'edit.form.value',
+                    ->add('data', ChoiceType::class, array_merge($options, [
                         'placeholder' => 'edit.form.choice_placeholder',
                         'choices' => $choices
-                    ]);
+                    ], $model->getTypeOptions()));
             } else {
                 $event
                     ->getForm()
-                    ->add('data', TextType::class, [
-                        'translation_domain' => 'HelisSettingsManager',
-                        'label' => 'edit.form.value',
+                    ->add('data', TextType::class, array_merge($options, [
                         'required' => false,
-                    ]);
+                    ], $model->getTypeOptions()));
             }
         });
     }
