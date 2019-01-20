@@ -5,16 +5,11 @@ declare(strict_types=1);
 namespace Helis\SettingsManagerBundle\Form;
 
 use Helis\SettingsManagerBundle\Form\Type\DomainType;
-use Helis\SettingsManagerBundle\Form\Type\YamlType;
 use Helis\SettingsManagerBundle\Model\SettingModel;
 use Helis\SettingsManagerBundle\Model\Type;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -57,15 +52,15 @@ class SettingFormType extends AbstractType
                 'translation_domain' => 'HelisSettingsManager',
                 'label'              => 'edit.form.is_enabled'
             ];
-            if ($model->getType()->equals(Type::BOOL())) {
+            if ($model->getType()->equals(Type::BOOL()) || $model->getType()->getValue() === 'bool') {
                 $options += ['required' => false];
-            } elseif ($model->getType()->equals(Type::INT())) {
+            } elseif ($model->getType()->equals(Type::INT()) || $model->getType()->getValue() === 'int') {
                 $options += ['scale' => 0];
-            } elseif ($model->getType()->equals(Type::FLOAT())) {
+            } elseif ($model->getType()->equals(Type::FLOAT()) || $model->getType()->getValue() === 'float') {
                 $options += ['scale' => 2];
-            } elseif ($model->getType()->equals(Type::YAML())) {
+            } elseif ($model->getType()->equals(Type::YAML()) || $model->getType()->getValue() === 'yaml') {
                 $options += ['attr' => ['rows' => 12]];
-            } elseif ($model->getType()->equals(Type::CHOICE())) {
+            } elseif ($model->getType()->equals(Type::CHOICE()) || $model->getType()->getValue() === 'choice') {
                 $options += [
                     'placeholder' => 'edit.form.choice_placeholder',
                     'choices'     => array_values($model->getChoices()) === $model->getChoices() ?
