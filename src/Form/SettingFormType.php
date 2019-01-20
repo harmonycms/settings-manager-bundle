@@ -83,19 +83,13 @@ class SettingFormType extends AbstractType
                         'attr' => ['rows' => 12],
                     ], $model->getTypeOptions()));
             } elseif ($model->getType()->equals(Type::CHOICE())) {
-                $choices = [];
-                foreach (array_flip($model->getChoices()) as $label => $value) {
-                    if (is_int($value)) {
-                        $choices[$label] = $label;
-                    } else {
-                        $choices[$label] = $value;
-                    }
-                }
                 $event
                     ->getForm()
                     ->add('data', ChoiceType::class, array_merge($options, [
                         'placeholder' => 'edit.form.choice_placeholder',
-                        'choices' => $choices
+                        'choices' => array_values($model->getChoices()) === $model->getChoices()
+                            ? array_combine($model->getChoices(), $model->getChoices())
+                            : $model->getChoices()
                     ], $model->getTypeOptions()));
             } else {
                 $event
