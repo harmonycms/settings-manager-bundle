@@ -57,47 +57,28 @@ class SettingFormType extends AbstractType
                 'translation_domain' => 'HelisSettingsManager',
                 'label'              => 'edit.form.is_enabled'
             ];
-
             if ($model->getType()->equals(Type::BOOL())) {
-                $event
-                    ->getForm()
-                    ->add('data', CheckboxType::class, array_merge($options, [
-                        'required' => false,
-                    ], $model->getTypeOptions()));
+                $options += ['required' => false];
             } elseif ($model->getType()->equals(Type::INT())) {
-                $event
-                    ->getForm()
-                    ->add('data', IntegerType::class, array_merge($options, [
-                        'scale' => 0,
-                    ], $model->getTypeOptions()));
+                $options += ['scale' => 0];
             } elseif ($model->getType()->equals(Type::FLOAT())) {
-                $event
-                    ->getForm()
-                    ->add('data', NumberType::class, array_merge($options, [
-                        'scale' => 2,
-                    ], $model->getTypeOptions()));
+                $options += ['scale' => 2];
             } elseif ($model->getType()->equals(Type::YAML())) {
-                $event
-                    ->getForm()
-                    ->add('data', YamlType::class, array_merge($options, [
-                        'attr' => ['rows' => 12],
-                    ], $model->getTypeOptions()));
+                $options += ['attr' => ['rows' => 12]];
             } elseif ($model->getType()->equals(Type::CHOICE())) {
-                $event
-                    ->getForm()
-                    ->add('data', ChoiceType::class, array_merge($options, [
-                        'placeholder' => 'edit.form.choice_placeholder',
-                        'choices' => array_values($model->getChoices()) === $model->getChoices()
-                            ? array_combine($model->getChoices(), $model->getChoices())
-                            : $model->getChoices()
-                    ], $model->getTypeOptions()));
+                $options += [
+                    'placeholder' => 'edit.form.choice_placeholder',
+                    'choices'     => array_values($model->getChoices()) === $model->getChoices() ?
+                        array_combine($model->getChoices(), $model->getChoices()) : $model->getChoices()
+                ];
             } else {
-                $event
-                    ->getForm()
-                    ->add('data', TextType::class, array_merge($options, [
-                        'required' => false,
-                    ], $model->getTypeOptions()));
+                $options += ['required' => false];
             }
+
+            $event
+                ->getForm()
+                ->add('data', Type::getTypeName($model->getType()->getValue()),
+                    array_merge($options, $model->getTypeOptions()));
         });
     }
 
