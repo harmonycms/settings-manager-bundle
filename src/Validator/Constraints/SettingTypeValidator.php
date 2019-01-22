@@ -21,7 +21,7 @@ class SettingTypeValidator extends ConstraintValidator
             return;
         }
 
-        $type = strtolower($type->getKey());
+        $type = $type->getValue();
         $type = $type === 'yaml' ? 'array' : $type;
         $type = $type === 'choice' ? 'string' : $type;
 

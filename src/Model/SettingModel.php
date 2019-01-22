@@ -14,6 +14,7 @@ class SettingModel
     protected $domain;
     protected $tags;
     protected $type;
+    protected $typeOptions = [];
     protected $data = [];
     protected $providerName;
     protected $choices = [];
@@ -107,6 +108,26 @@ class SettingModel
     public function setType(Type $type): SettingModel
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTypeOptions(): array
+    {
+        return $this->typeOptions;
+    }
+
+    /**
+     * @param array $typeOptions
+     *
+     * @return SettingModel
+     */
+    public function setTypeOptions(array $typeOptions): SettingModel
+    {
+        $this->typeOptions = $typeOptions;
 
         return $this;
     }
