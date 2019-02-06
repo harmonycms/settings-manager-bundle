@@ -119,11 +119,8 @@ EOF
                 }
             } // Display all settings
             else {
-                /** @var SettingsProviderInterface $provider */
-                foreach (array_reverse($this->settingsManager->getProviders()) as $pName => $provider) {
-                    foreach ($provider->getSettings($domains) as $settingModel) {
-                        $tableRows[] = $this->_renderSettingsRow($settingModel);
-                    }
+                foreach ($this->settingsManager->getSettingsByDomain($domains) as $settingModel) {
+                    $tableRows[] = $this->_renderSettingsRow($settingModel);
                 }
             }
 
