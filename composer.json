@@ -13,12 +13,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Harmony\\SettingsManagerBundle\\": "src/"
+            "Harmony\\Bundle\\SettingsManagerBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Harmony\\SettingsManagerBundle\\Tests\\": "tests/src/",
+            "Harmony\\Bundle\\SettingsManagerBundle\\Tests\\": "tests/src/",
             "App\\": "tests/bundle/"
         },
         "classmap": ["tests/app/AppKernel.php"]
