@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Unit\Validator\Constraints;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Validator\Constraints;
 
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Settings\SettingsManager;
-use Helis\SettingsManagerBundle\Validator\Constraints\UniqueSetting;
-use Helis\SettingsManagerBundle\Validator\Constraints\UniqueSettingValidator;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
+use Harmony\Bundle\SettingsManagerBundle\Validator\Constraints\UniqueSetting;
+use Harmony\Bundle\SettingsManagerBundle\Validator\Constraints\UniqueSettingValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 

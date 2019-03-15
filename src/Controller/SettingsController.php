@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Controller;
+namespace Harmony\Bundle\SettingsManagerBundle\Controller;
 
-use Helis\SettingsManagerBundle\Event\SettingChangeEvent;
-use Helis\SettingsManagerBundle\Form\SettingFormType;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\Type;
-use Helis\SettingsManagerBundle\Settings\EventManagerInterface;
-use Helis\SettingsManagerBundle\Settings\SettingsManager;
-use Helis\SettingsManagerBundle\SettingsManagerEvents;
+use Harmony\Bundle\SettingsManagerBundle\Event\SettingChangeEvent;
+use Harmony\Bundle\SettingsManagerBundle\Form\SettingFormType;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Type;
+use Harmony\Bundle\SettingsManagerBundle\Settings\EventManagerInterface;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
+use Harmony\Bundle\SettingsManagerBundle\SettingsManagerEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +42,7 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings_index');
         }
 
-        return $this->render('@HelisSettingsManager/Settings/index.html.twig', [
+        return $this->render('@HarmonySettingsManager/Settings/index.html.twig', [
             'settings' => $settings,
             'domains' => $this->settingsManager->getDomains(),
             'providers' => $this->settingsManager->getProviders(),
@@ -94,7 +94,7 @@ class SettingsController extends AbstractController
             return $this->redirectToRoute('settings_index', ['domainName' => $domainName]);
         }
 
-        return $this->render('@HelisSettingsManager/Settings/edit.html.twig', [
+        return $this->render('@HarmonySettingsManager/Settings/edit.html.twig', [
             'form' => $form->createView(),
             'settingType' => $setting->getType()->getValue(),
             'domainName' => $domainName,

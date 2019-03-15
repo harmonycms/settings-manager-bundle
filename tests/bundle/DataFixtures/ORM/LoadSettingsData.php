@@ -5,8 +5,8 @@ namespace App\DataFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\Type;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use App\Entity\Setting;
 use App\Entity\Tag;
 

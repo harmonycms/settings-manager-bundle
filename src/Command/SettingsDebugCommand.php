@@ -1,11 +1,11 @@
 <?php
 
-namespace Helis\SettingsManagerBundle\Command;
+namespace Harmony\Bundle\SettingsManagerBundle\Command;
 
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Model\Type;
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
-use Helis\SettingsManagerBundle\Settings\SettingsManager;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Type;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * Class SettingsDebugCommand
  *
- * @package Helis\SettingsManagerBundle\Command
+ * @package Harmony\Bundle\SettingsManagerBundle\Command
  */
 class SettingsDebugCommand extends Command
 {

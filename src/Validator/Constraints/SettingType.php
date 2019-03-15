@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Validator\Constraints;
+namespace Harmony\Bundle\SettingsManagerBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 

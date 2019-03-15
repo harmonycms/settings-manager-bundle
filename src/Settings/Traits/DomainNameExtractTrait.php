@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings\Traits;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings\Traits;
 
-use Helis\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
 
 trait DomainNameExtractTrait
 {

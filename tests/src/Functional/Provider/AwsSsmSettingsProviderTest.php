@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Functional\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 
 use Aws\Result;
 use Aws\Ssm\SsmClient;
-use Helis\SettingsManagerBundle\Exception\ReadOnlyProviderException;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Model\Type;
-use Helis\SettingsManagerBundle\Provider\AwsSsmSettingsProvider;
-use Helis\SettingsManagerBundle\Serializer\Normalizer\DomainModelNormalizer;
-use Helis\SettingsManagerBundle\Serializer\Normalizer\SettingModelNormalizer;
-use Helis\SettingsManagerBundle\Serializer\Normalizer\TagModelNormalizer;
+use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Type;
+use Harmony\Bundle\SettingsManagerBundle\Provider\AwsSsmSettingsProvider;
+use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\DomainModelNormalizer;
+use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\SettingModelNormalizer;
+use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\TagModelNormalizer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -214,7 +214,7 @@ class AwsSsmSettingsProviderTest extends TestCase
     public function testInvalidSave(): void
     {
         $this->expectException(ReadOnlyProviderException::class);
-        $this->expectExceptionMessage('Helis\SettingsManagerBundle\Provider\AwsSsmSettingsProvider setting provider is read only');
+        $this->expectExceptionMessage('Harmony\Bundle\SettingsManagerBundle\Provider\AwsSsmSettingsProvider setting provider is read only');
 
         $settingsProvider = $this->createSettingsProvider(['Parameter A Name']);
 

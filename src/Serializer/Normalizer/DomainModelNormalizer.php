@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Serializer\Normalizer;
+namespace Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer;
 
-use Helis\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectToPopulateTrait;

@@ -1,4 +1,4 @@
-Helis\SettingsManagerBundle\Model\DomainModel:
+Harmony\Bundle\SettingsManagerBundle\Model\DomainModel:
     type: embeddable
     fields:
         name:

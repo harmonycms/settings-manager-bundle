@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Functional\Settings;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Settings;
 
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
-use Helis\SettingsManagerBundle\Settings\ProvidersManager;
-use Helis\SettingsManagerBundle\Settings\SettingsManager;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\Settings\ProvidersManager;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use App\Entity\Setting;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Unit\Validator\Constraints;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Validator\Constraints;
 
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Model\Type;
-use Helis\SettingsManagerBundle\Validator\Constraints\SettingType;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Type;
+use Harmony\Bundle\SettingsManagerBundle\Validator\Constraints\SettingType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\ValidatorBuilder;

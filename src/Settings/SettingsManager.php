@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 
-use Helis\SettingsManagerBundle\Event\SettingChangeEvent;
-use Helis\SettingsManagerBundle\Exception\ProviderNotFoundException;
-use Helis\SettingsManagerBundle\Exception\ReadOnlyProviderException;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
-use Helis\SettingsManagerBundle\SettingsManagerEvents;
+use Harmony\Bundle\SettingsManagerBundle\Event\SettingChangeEvent;
+use Harmony\Bundle\SettingsManagerBundle\Exception\ProviderNotFoundException;
+use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\SettingsManagerEvents;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 

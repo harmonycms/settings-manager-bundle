@@ -1,4 +1,4 @@
-Helis\SettingsManagerBundle\Model\TagModel:
+Harmony\Bundle\SettingsManagerBundle\Model\TagModel:
     type: mappedSuperclass
     fields:
         name:

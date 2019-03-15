@@ -40,18 +40,18 @@ doctrine:
             AppBundle:
                 type: annotation
                 is_bundle: true
-            HelisSettingsManagerBundle:
+            HarmonySettingsManagerBundle:
                 type: yml
                 is_bundle: true
                 dir: "Resources/config/doctrine"
-                alias: HelisSettingsManagerBundle
-                prefix: Helis\SettingsManagerBundle
+                alias: HarmonySettingsManagerBundle
+                prefix: Harmony\Bundle\SettingsManagerBundle
 
 monolog:
     channels:
         - settings
 
-helis_settings_manager:
+harmony_settings_manager:
     enqueue_extension: true
     profiler: true
     logger:
@@ -121,7 +121,7 @@ services:
         resource: '%kernel.root_dir%/../bundle/Controller/*'
         tags: [controller.service_arguments]
 
-    Helis\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider:
+    Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider:
         arguments:
             $entityManager: '@doctrine.orm.default_entity_manager'
             $settingsEntityClass: 'App\Entity\Setting'
@@ -129,7 +129,7 @@ services:
         tags:
             - { name: settings_manager.provider, provider: orm, priority: 20 }
 
-    Helis\SettingsManagerBundle\Provider\CookieSettingsProvider:
+    Harmony\Bundle\SettingsManagerBundle\Provider\CookieSettingsProvider:
         arguments:
             $serializer: '@settings_manager.serializer'
         tags:

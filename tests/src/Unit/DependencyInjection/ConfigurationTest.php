@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Unit\DependencyInjection;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\DependencyInjection;
 
-use Helis\SettingsManagerBundle\DependencyInjection\Configuration;
+use Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Configuration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Processor;
 
@@ -38,7 +38,7 @@ class ConfigurationTest extends TestCase
             // case 1: settings files
             [
                 [
-                    'helis_settings_manager' => [
+                    'harmony_settings_manager' => [
                         'settings_files' => [
                             'some/file1.yml',
                             'some/file2.yml',
@@ -63,7 +63,7 @@ class ConfigurationTest extends TestCase
             // case 3: settings files, settings
             [
                 [
-                    'helis_settings_manager' => [
+                    'harmony_settings_manager' => [
                         'enqueue_extension' => true,
                         'settings_files' => [
                             'some/file1.yml',

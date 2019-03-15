@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Unit\Form;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Form;
 
-use Helis\SettingsManagerBundle\Form\SettingFormType;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Model\Type;
+use Harmony\Bundle\SettingsManagerBundle\Form\SettingFormType;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class SettingFormTypeTest extends TypeTestCase

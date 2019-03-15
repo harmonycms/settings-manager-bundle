@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\DependencyInjection\Compiler;
+namespace Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler;
 
-use Helis\SettingsManagerBundle\Settings\SettingsManager;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

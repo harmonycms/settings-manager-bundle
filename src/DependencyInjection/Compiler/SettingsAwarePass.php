@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\DependencyInjection\Compiler;
+namespace Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler;
 
-use Helis\SettingsManagerBundle\Settings\SettingsAwareServiceFactory;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsAwareServiceFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\LogicException;

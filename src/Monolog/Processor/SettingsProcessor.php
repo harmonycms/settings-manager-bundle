@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Monolog\Processor;
+namespace Harmony\Bundle\SettingsManagerBundle\Monolog\Processor;
 
-use Helis\SettingsManagerBundle\Settings\SettingsStore;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsStore;
 
 class SettingsProcessor
 {

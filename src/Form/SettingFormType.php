@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Form;
+namespace Harmony\Bundle\SettingsManagerBundle\Form;
 
-use Helis\SettingsManagerBundle\Form\Type\DomainType;
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Model\Type;
+use Harmony\Bundle\SettingsManagerBundle\Form\Type\DomainType;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -23,21 +23,21 @@ class SettingFormType extends AbstractType
             ->add('domain', DomainType::class)
             ->add('name', null, [
                 'disabled' => true,
-                'translation_domain' => 'HelisSettingsManager',
+                'translation_domain' => 'HarmonySettingsManager',
                 'label' => 'edit.form.name',
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => Type::toArray(),
                 'disabled' => true,
-                'translation_domain' => 'HelisSettingsManager',
-                'choice_translation_domain' => 'HelisSettingsManager',
+                'translation_domain' => 'HarmonySettingsManager',
+                'choice_translation_domain' => 'HarmonySettingsManager',
                 'choice_label' => function (string $type) {
                     return 'type.' . strtolower($type);
                 },
                 'label' => 'edit.form.type',
             ])
             ->add('description', TextareaType::class, [
-                'translation_domain' => 'HelisSettingsManager',
+                'translation_domain' => 'HarmonySettingsManager',
                 'label' => 'edit.form.description',
                 'required' => false,
             ]);
@@ -49,7 +49,7 @@ class SettingFormType extends AbstractType
             }
 
             $options = [
-                'translation_domain' => 'HelisSettingsManager',
+                'translation_domain' => 'HarmonySettingsManager',
                 'label'              => 'edit.form.is_enabled'
             ];
             if ($model->getType()->equals(Type::BOOL()) || $model->getType()->getValue() === 'bool') {

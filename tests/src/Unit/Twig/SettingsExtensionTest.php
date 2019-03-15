@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Unit\Twig;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Twig;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
-use Helis\SettingsManagerBundle\Twig\SettingsExtension;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Twig\SettingsExtension;
 use PHPUnit\Framework\TestCase;
 
 class SettingsExtensionTest extends TestCase

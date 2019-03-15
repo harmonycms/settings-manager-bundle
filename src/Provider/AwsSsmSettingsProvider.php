@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 
 use Aws\Ssm\SsmClient;
-use Helis\SettingsManagerBundle\Exception\ReadOnlyProviderException;
-use Helis\SettingsManagerBundle\Exception\UnknownTypeException;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Model\Type;
-use Helis\SettingsManagerBundle\Provider\Traits\ReadOnlyProviderTrait;
+use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
+use Harmony\Bundle\SettingsManagerBundle\Exception\UnknownTypeException;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Type;
+use Harmony\Bundle\SettingsManagerBundle\Provider\Traits\ReadOnlyProviderTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class AwsSsmSettingsProvider extends SimpleSettingsProvider

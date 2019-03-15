@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Command;
+namespace Harmony\Bundle\SettingsManagerBundle\Command;
 
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
-use Helis\SettingsManagerBundle\Settings\ProvidersManager;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\Settings\ProvidersManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -25,7 +25,7 @@ class WarmUpProvidersCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('helis:settings:warm-up-providers')
+            ->setName('harmony:settings:warm-up-providers')
             ->addOption(
                 'domains',
                 'd',

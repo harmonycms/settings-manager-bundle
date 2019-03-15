@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 
-use Helis\SettingsManagerBundle\Exception\ReadOnlyProviderException;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
 
 interface SettingsProviderInterface
 {

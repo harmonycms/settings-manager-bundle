@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
-use Helis\SettingsManagerBundle\Settings\Switchable\SwitchableControllerInterface;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Settings\Switchable\SwitchableControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

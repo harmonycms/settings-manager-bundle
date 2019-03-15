@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Helis\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
 
 class SettingsStore extends ArrayCollection
 {

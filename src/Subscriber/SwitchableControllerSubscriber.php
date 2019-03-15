@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Subscriber;
+namespace Harmony\Bundle\SettingsManagerBundle\Subscriber;
 
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
-use Helis\SettingsManagerBundle\Settings\Switchable\SwitchableControllerInterface;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Settings\Switchable\SwitchableControllerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

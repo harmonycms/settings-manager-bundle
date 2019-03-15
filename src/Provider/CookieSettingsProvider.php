@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 
 use ParagonIE\Paseto\Builder;
 use ParagonIE\Paseto\Keys\SymmetricKey;

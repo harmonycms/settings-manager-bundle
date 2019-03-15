@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Unit\Settings;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Settings;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use Helis\SettingsManagerBundle\Settings\SettingsAwareServiceFactory;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsAwareServiceFactory;
 use PHPUnit\Framework\TestCase;
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
 
 class SettingsAwareServiceFactoryTest extends TestCase
 {

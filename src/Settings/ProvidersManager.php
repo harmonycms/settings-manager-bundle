@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
-use Helis\SettingsManagerBundle\Settings\Traits\DomainNameExtractTrait;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\Settings\Traits\DomainNameExtractTrait;
 
 class ProvidersManager
 {

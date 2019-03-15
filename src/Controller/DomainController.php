@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Controller;
+namespace Harmony\Bundle\SettingsManagerBundle\Controller;
 
-use Helis\SettingsManagerBundle\Settings\SettingsManager;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +22,7 @@ class DomainController extends AbstractController
 
     public function indexAction(): Response
     {
-        return $this->render('@HelisSettingsManager/Domain/index.html.twig', [
+        return $this->render('@HarmonySettingsManager/Domain/index.html.twig', [
             'domains' => $this->settingsManager->getDomains(),
             'providers' => $this->settingsManager->getProviders(),
         ]);

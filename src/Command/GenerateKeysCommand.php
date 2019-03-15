@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Command;
+namespace Harmony\Bundle\SettingsManagerBundle\Command;
 
 use ParagonIE\Paseto\Protocol\Version2;
 use Symfony\Component\Console\Command\Command;
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class GenerateKeysCommand extends Command
 {
-    protected static $defaultName = 'helis:settings:generate-keys';
+    protected static $defaultName = 'harmony:settings:generate-keys';
 
     protected function configure(): void
     {

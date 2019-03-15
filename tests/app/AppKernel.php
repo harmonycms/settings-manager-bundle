@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new \Helis\SettingsManagerBundle\HelisSettingsManagerBundle(),
+            new \Harmony\Bundle\SettingsManagerBundle\HarmonySettingsManagerBundle(),
 
             // for testing
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
@@ -72,7 +72,7 @@ class AppKernel extends Kernel
             private function supports(string $id): bool
             {
                 return strpos($id, 'settings_manager.') === 0
-                    || strpos($id, 'Helis\SettingsManagerBundle') === 0;
+                    || strpos($id, 'Harmony\Bundle\SettingsManagerBundle') === 0;
             }
         });
     }

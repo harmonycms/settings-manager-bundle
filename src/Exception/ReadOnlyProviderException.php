@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Exception;
+namespace Harmony\Bundle\SettingsManagerBundle\Exception;
 
 class ReadOnlyProviderException extends \LogicException implements SettingsException
 {

@@ -1,22 +1,24 @@
 {
-    "name": "helis/settings-manager-bundle",
+    "name": "harmony/settings-manager-bundle",
     "description": "Provides a nice way to define variables and inject them into application parts",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
         {
-            "name": "Helis LT",
-            "email": "info@helis.lt"
+            "name": "David Sanchez",
+            "email": "david38sanchez@gmail.com",
+            "homepage": "http://davidsanchez.me",
+            "role": "Developer"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Helis\\SettingsManagerBundle\\": "src/"
+            "Harmony\\SettingsManagerBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Helis\\SettingsManagerBundle\\Tests\\": "tests/src/",
+            "Harmony\\SettingsManagerBundle\\Tests\\": "tests/src/",
             "App\\": "tests/bundle/"
         },
         "classmap": ["tests/app/AppKernel.php"]

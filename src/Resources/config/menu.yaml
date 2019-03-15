@@ -4,7 +4,7 @@ services:
         autowire: false
         autoconfigure: false
 
-    Helis\SettingsManagerBundle\Menu\MenuBuilder:
+    Harmony\Bundle\SettingsManagerBundle\Menu\MenuBuilder:
         arguments:
             - "@knp_menu.factory"
             - '@event_dispatcher'

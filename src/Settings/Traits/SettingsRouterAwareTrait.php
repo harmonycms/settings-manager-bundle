@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings\Traits;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings\Traits;
 
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
 
 trait SettingsRouterAwareTrait
 {

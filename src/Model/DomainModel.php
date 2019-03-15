@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Model;
+namespace Harmony\Bundle\SettingsManagerBundle\Model;
 
 class DomainModel
 {

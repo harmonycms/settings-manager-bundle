@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
-use Helis\SettingsManagerBundle\Settings\Switchable\SwitchableCommandInterface;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Settings\Switchable\SwitchableCommandInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 
-use Helis\SettingsManagerBundle\Event\SettingEvent;
+use Harmony\Bundle\SettingsManagerBundle\Event\SettingEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EventManager implements EventManagerInterface

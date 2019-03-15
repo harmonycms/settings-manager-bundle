@@ -9,6 +9,6 @@ services:
             tags:
                 - { name: validator.constraint_validator }
 
-    Helis\SettingsManagerBundle\Validator\Constraints\UniqueSettingValidator:
+    Harmony\Bundle\SettingsManagerBundle\Validator\Constraints\UniqueSettingValidator:
         arguments:
-            - '@Helis\SettingsManagerBundle\Settings\SettingsManager'
+            - '@Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager'

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Functional\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 
 use App\Entity\Setting;
 use App\Entity\Tag;
-use Helis\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider;
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 
 class DoctrineOrmSettingsProviderTest extends AbstractSettingsProviderTest
 {

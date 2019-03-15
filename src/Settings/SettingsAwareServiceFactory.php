@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;

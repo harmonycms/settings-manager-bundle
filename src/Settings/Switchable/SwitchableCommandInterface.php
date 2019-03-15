@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings\Switchable;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings\Switchable;
 
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
 
 interface SwitchableCommandInterface
 {

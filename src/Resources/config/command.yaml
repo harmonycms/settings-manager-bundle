@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Harmony\Bundle\SettingsManagerBundle\Command\WarmUpProvidersCommand: ~
+    Harmony\Bundle\SettingsManagerBundle\Command\GenerateKeysCommand: ~
+    Harmony\Bundle\SettingsManagerBundle\Command\SettingsDebugCommand: ~

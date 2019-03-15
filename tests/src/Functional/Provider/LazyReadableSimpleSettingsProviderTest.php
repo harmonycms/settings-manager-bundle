@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Functional\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 
-use Helis\SettingsManagerBundle\Provider\LazyReadableSimpleSettingsProvider;
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\Provider\LazyReadableSimpleSettingsProvider;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 
 class LazyReadableSimpleSettingsProviderTest extends AbstractReadableSettingsProviderTest
 {

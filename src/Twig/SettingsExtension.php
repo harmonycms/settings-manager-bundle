@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Twig;
+namespace Harmony\Bundle\SettingsManagerBundle\Twig;
 
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
 
 class SettingsExtension extends \Twig_Extension
 {

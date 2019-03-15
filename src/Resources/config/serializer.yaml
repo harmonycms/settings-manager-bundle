@@ -9,9 +9,9 @@ services:
         arguments:
             $normalizers:
                 - '@settings_manager.normalizer.array'
-                - '@Helis\SettingsManagerBundle\Serializer\Normalizer\SettingModelNormalizer'
-                - '@Helis\SettingsManagerBundle\Serializer\Normalizer\DomainModelNormalizer'
-                - '@Helis\SettingsManagerBundle\Serializer\Normalizer\TagModelNormalizer'
+                - '@Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\SettingModelNormalizer'
+                - '@Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\DomainModelNormalizer'
+                - '@Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\TagModelNormalizer'
             $encoders:
                 - '@settings_manager.encoder.json'
 
@@ -21,8 +21,8 @@ services:
     settings_manager.normalizer.array:
         class: Symfony\Component\Serializer\Normalizer\ArrayDenormalizer
 
-    Helis\SettingsManagerBundle\Serializer\Normalizer\SettingModelNormalizer: ~
+    Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\SettingModelNormalizer: ~
 
-    Helis\SettingsManagerBundle\Serializer\Normalizer\DomainModelNormalizer: ~
+    Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\DomainModelNormalizer: ~
 
-    Helis\SettingsManagerBundle\Serializer\Normalizer\TagModelNormalizer: ~
+    Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\TagModelNormalizer: ~

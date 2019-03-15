@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Functional\Subscriber;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Subscriber;
 
 use App\DataFixtures\ORM\LoadSwitchableCommandData;
 use Liip\FunctionalTestBundle\Test\WebTestCase;

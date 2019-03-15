@@ -1,9 +1,0 @@
-services:
-    _defaults:
-        public: false
-        autowire: true
-        autoconfigure: true
-
-    Helis\SettingsManagerBundle\Command\WarmUpProvidersCommand: ~
-    Helis\SettingsManagerBundle\Command\GenerateKeysCommand: ~
-    Helis\SettingsManagerBundle\Command\SettingsDebugCommand: ~

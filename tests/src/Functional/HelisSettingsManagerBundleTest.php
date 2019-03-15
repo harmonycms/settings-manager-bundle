@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Functional;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class HelisSettingsManagerBundleTest extends WebTestCase
+class HarmonySettingsManagerBundleTest extends WebTestCase
 {
     public function testContainerLoad()
     {
@@ -18,7 +18,7 @@ class HelisSettingsManagerBundleTest extends WebTestCase
 
         $services = array_filter($services, function (string $id): bool {
             return strpos($id, 'settings_manager.') === 0
-                || strpos($id, 'Helis\SettingsManagerBundle') === 0;
+                || strpos($id, 'Harmony\Bundle\SettingsManagerBundle') === 0;
         });
 
         foreach ($services as $id) {

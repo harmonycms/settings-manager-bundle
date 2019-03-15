@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Provider\Traits;
+namespace Harmony\Bundle\SettingsManagerBundle\Provider\Traits;
 
 trait WritableProviderTrait
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Controller\Traits;
+namespace Harmony\Bundle\SettingsManagerBundle\Controller\Traits;
 
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 trait SettingsControllerTrait

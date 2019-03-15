@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Provider\Traits\WritableProviderTrait;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Provider\Traits\WritableProviderTrait;
 use ParagonIE\Paseto\Builder;
 use ParagonIE\Paseto\Exception\PasetoException;
 use ParagonIE\Paseto\Parser;

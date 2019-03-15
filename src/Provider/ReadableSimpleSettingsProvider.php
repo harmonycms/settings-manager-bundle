@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 
-use Helis\SettingsManagerBundle\Provider\Traits\ReadOnlyProviderTrait;
+use Harmony\Bundle\SettingsManagerBundle\Provider\Traits\ReadOnlyProviderTrait;
 
 class ReadableSimpleSettingsProvider extends SimpleSettingsProvider
 {

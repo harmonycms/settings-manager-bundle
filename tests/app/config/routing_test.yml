@@ -3,6 +3,6 @@ switchable_print:
     defaults:
         _controller: AppBundle:Switchable:print
 
-helis_settings_manager:
-    resource: "@HelisSettingsManagerBundle/Resources/config/routing.yml"
+harmony_settings_manager:
+    resource: "@HarmonySettingsManagerBundle/Resources/config/routing.yml"
     prefix:   /

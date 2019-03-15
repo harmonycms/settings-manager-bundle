@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Functional\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 
 use App\Entity\Setting;
 use App\Entity\Tag;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Model\Type;
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Type;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 abstract class AbstractReadableSettingsProviderTest extends WebTestCase

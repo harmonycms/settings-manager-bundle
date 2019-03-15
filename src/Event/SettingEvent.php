@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Event;
+namespace Harmony\Bundle\SettingsManagerBundle\Event;
 
-use Helis\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
 use Symfony\Component\EventDispatcher\Event;
 
 class SettingEvent extends Event

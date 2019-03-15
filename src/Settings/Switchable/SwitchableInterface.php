@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings\Switchable;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings\Switchable;
 
 interface SwitchableInterface
 {

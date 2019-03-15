@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Provider\Factory;
+namespace Harmony\Bundle\SettingsManagerBundle\Provider\Factory;
 
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 
 interface ProviderFactoryInterface
 {

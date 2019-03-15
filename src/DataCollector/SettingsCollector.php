@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\DataCollector;
+namespace Harmony\Bundle\SettingsManagerBundle\DataCollector;
 
-use Helis\SettingsManagerBundle\Settings\SettingsStore;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsStore;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;

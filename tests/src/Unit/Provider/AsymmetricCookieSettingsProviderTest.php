@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Unit\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Provider;
 
-use Helis\SettingsManagerBundle\Provider\AbstractCookieSettingsProvider;
-use Helis\SettingsManagerBundle\Provider\AsymmetricCookieSettingsProvider;
+use Harmony\Bundle\SettingsManagerBundle\Provider\AbstractCookieSettingsProvider;
+use Harmony\Bundle\SettingsManagerBundle\Provider\AsymmetricCookieSettingsProvider;
 use ParagonIE\Paseto\Protocol\Version2;
 
 class AsymmetricCookieSettingsProviderTest extends AbstractCookieSettingsProviderTest

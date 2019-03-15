@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Validator\Constraints;
+namespace Harmony\Bundle\SettingsManagerBundle\Validator\Constraints;
 
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\Settings\SettingsManager;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

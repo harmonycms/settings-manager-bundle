@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Model;
+namespace Harmony\Bundle\SettingsManagerBundle\Model;
 
-use Helis\SettingsManagerBundle\Form\Type\YamlType;
+use Harmony\Bundle\SettingsManagerBundle\Form\Type\YamlType;
 use MyCLabs\Enum\Enum;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;

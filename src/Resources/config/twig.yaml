@@ -9,6 +9,6 @@ services:
             tags:
                 - { name: twig.extension }
 
-    Helis\SettingsManagerBundle\Twig\SettingsExtension:
+    Harmony\Bundle\SettingsManagerBundle\Twig\SettingsExtension:
         arguments:
-            - '@Helis\SettingsManagerBundle\Settings\SettingsRouter'
+            - '@Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter'

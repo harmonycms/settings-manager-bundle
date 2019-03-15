@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Settings;
+namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 
-use Helis\SettingsManagerBundle\Event\GetSettingEvent;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
-use Helis\SettingsManagerBundle\SettingsManagerEvents;
+use Harmony\Bundle\SettingsManagerBundle\Event\GetSettingEvent;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\SettingsManagerEvents;
 
 class SettingsRouter
 {

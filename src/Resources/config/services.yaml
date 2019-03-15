@@ -1,0 +1,39 @@
+services:
+    _defaults:
+        public: false
+        autowire: false
+        autoconfigure: false
+
+    Harmony\Bundle\SettingsManagerBundle\Controller\DomainController:
+        public: true
+        arguments:
+            $settingsManager: '@Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager'
+        tags:
+            - { name: controller.service_arguments }
+
+    Harmony\Bundle\SettingsManagerBundle\Controller\SettingsController:
+        public: true
+        arguments:
+            $settingsManager: '@Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager'
+            $eventManager: '@Harmony\Bundle\SettingsManagerBundle\Settings\EventManagerInterface'
+            $validator: '@validator'
+        tags:
+            - { name: controller.service_arguments }
+
+    Harmony\Bundle\SettingsManagerBundle\Settings\SettingsAwareServiceFactory:
+        arguments:
+            $settingsRouter: '@Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter'
+        calls:
+            - [setLogger, ['@?settings_manager.logger']]
+
+    Harmony\Bundle\SettingsManagerBundle\Settings\SettingsStore: ~
+
+    Harmony\Bundle\SettingsManagerBundle\Settings\ProvidersManager:
+        arguments:
+            $settingsManager: '@Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager'
+
+    Harmony\Bundle\SettingsManagerBundle\Settings\EventManager:
+        arguments:
+            $eventDispatcher: '@event_dispatcher'
+
+    Harmony\Bundle\SettingsManagerBundle\Settings\EventManagerInterface: '@Harmony\Bundle\SettingsManagerBundle\Settings\EventManager'

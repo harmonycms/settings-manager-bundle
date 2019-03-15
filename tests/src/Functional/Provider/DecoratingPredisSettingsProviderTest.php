@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Functional\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 
-use Helis\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider;
-use Helis\SettingsManagerBundle\Provider\SettingsProviderInterface;
+use Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider;
+use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 use Predis\Client;
 use Predis\CommunicationException;
-use Helis\SettingsManagerBundle\Provider\DecoratingPredisSettingsProvider;
+use Harmony\Bundle\SettingsManagerBundle\Provider\DecoratingPredisSettingsProvider;
 use App\Entity\Setting;
 use App\Entity\Tag;
 

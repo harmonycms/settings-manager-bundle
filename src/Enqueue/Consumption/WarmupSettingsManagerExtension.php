@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Enqueue\Consumption;
+namespace Harmony\Bundle\SettingsManagerBundle\Enqueue\Consumption;
 
 use Enqueue\Consumption\Context;
 use Enqueue\Consumption\EmptyExtensionTrait;
 use Enqueue\Consumption\ExtensionInterface;
-use Helis\SettingsManagerBundle\Settings\Traits\SettingsRouterAwareTrait;
+use Harmony\Bundle\SettingsManagerBundle\Settings\Traits\SettingsRouterAwareTrait;
 
 class WarmupSettingsManagerExtension implements ExtensionInterface
 {

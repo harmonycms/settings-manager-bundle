@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Subscriber;
+namespace Harmony\Bundle\SettingsManagerBundle\Subscriber;
 
-use Helis\SettingsManagerBundle\Settings\SettingsRouter;
-use Helis\SettingsManagerBundle\Settings\Switchable\SwitchableCommandInterface;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsRouter;
+use Harmony\Bundle\SettingsManagerBundle\Settings\Switchable\SwitchableCommandInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

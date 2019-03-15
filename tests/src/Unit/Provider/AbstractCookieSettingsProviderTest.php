@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Unit\Provider;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Provider;
 
-use Helis\SettingsManagerBundle\Provider\AbstractCookieSettingsProvider;
+use Harmony\Bundle\SettingsManagerBundle\Provider\AbstractCookieSettingsProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Helis\SettingsManagerBundle\Model\DomainModel;
-use Helis\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
 use Symfony\Component\Serializer\SerializerInterface;
 
 abstract class AbstractCookieSettingsProviderTest extends TestCase

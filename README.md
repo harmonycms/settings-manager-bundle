@@ -1,14 +1,10 @@
-# Helis Settings Manager Bundle
-
+SettingsManagerBundle
+=====================
 Provides a nice way to define variables and inject them into application parts.
 
  - Supporting `bool`, `string`, `int`, `float`, `array` as setting values.
  - Multiple providers.
  - User interface.
-
-[![Build Status](https://travis-ci.org/HelisLT/settings-manager-bundle.svg?branch=master)](https://travis-ci.org/HelisLT/settings-manager-bundle)
-[![Latest Stable Version](https://poser.pugx.org/helis/settings-manager-bundle/v/stable)](https://packagist.org/packages/helis/settings-manager-bundle)
-[![License](https://poser.pugx.org/helis/settings-manager-bundle/license)](https://packagist.org/packages/helis/settings-manager-bundle)
 
 ## Jump to
 
@@ -23,7 +19,7 @@ Provides a nice way to define variables and inject them into application parts.
 
 ## Quick start
 
- 1. `composer require helis/settings-manager-bundle`
+ 1. `composer require harmony/settings-manager-bundle`
 
  2. Register bundle to `AppKernel.php` (Symfony3) or `config/bundles.php` (Symfony4)
 
@@ -35,7 +31,7 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         return [
-            new Helis\SettingsManagerBundle\HelisSettingsManagerBundle(),
+            new Harmony\Bundle\SettingsManagerBundle\HarmonySettingsManagerBundle(),
         ];
     }
 }
@@ -44,7 +40,7 @@ class AppKernel extends Kernel
  3. Add an example configuration to `app/config/config.yml` (Symfony3) or `config/packages/settings_manager.yaml` (Symfony4)
 
 ```yaml
-helis_settings_manager:
+harmony_settings_manager:
     settings:
         - name: foo
           description: 'foo desc'
@@ -65,7 +61,7 @@ helis_settings_manager:
  4. Now, the easiest way to get settings in your services is by using `SettingsRouterAwareTrait`. The service will be automatically injected by [autowire](https://symfony.com/doc/current/service_container/autowiring.html#autowiring-other-methods-e-g-setters). Then just ask for setting:
 
 ```php
-use Helis\SettingsManagerBundle\Settings\Traits\SettingsRouterAwareTrait;
+use Harmony\Bundle\SettingsManagerBundle\Settings\Traits\SettingsRouterAwareTrait;
 
 class MuchAmazingService
 {
@@ -113,7 +109,7 @@ AppBundle\Service\AmazingService:
 
 ## Models
 
-#### `Helis\SettingsManagerBundle\Model\SettingModel`
+#### `Harmony\Bundle\SettingsManagerBundle\Model\SettingModel`
 
 Base setting model.
 
@@ -127,7 +123,7 @@ Base setting model.
 | $data         | array           | Holds actual value for setting
 | $providerName | string          | Internal field to know from which provider this setting is
 
-#### `Helis\SettingsManagerBundle\Model\DomainModel`
+#### `Harmony\Bundle\SettingsManagerBundle\Model\DomainModel`
 
 Domain is like a group for settings. Setting cannot exist without domain. The default is named `default`, which is also always enabled. Domain can hold only one setting with the same name. Settings with the same names must be in different domains. When a setting is requested, the one from a higher priority domain will be returned.
 
@@ -138,7 +134,7 @@ Domain is like a group for settings. Setting cannot exist without domain. The de
 | $enabled      | bool (default: false) | Is domain enabled indication
 | $readOnly     | bool (default: false) | is domain only readable indication
 
-#### `Helis\SettingsManagerBundle\Model\Type`
+#### `Harmony\Bundle\SettingsManagerBundle\Model\Type`
 
 Enum which holds supported types for setting. Values:
 
@@ -169,7 +165,7 @@ And additional 2 decorating providers:
 
 ### Simple settings provider
 
-`Helis\SettingsManagerBundle\Provider\SimpleSettingsProvider`
+`Harmony\Bundle\SettingsManagerBundle\Provider\SimpleSettingsProvider`
 
 This is a provider, which only holds settings collections. Currently, it's being used to hold settings from configuration, but many more can be configured.
 
@@ -179,7 +175,7 @@ Configuration example:
 
 ```yaml
 setting_provider_factory.foo:
-    class: Helis\SettingsManagerBundle\Provider\Factory\SimpleSettingsProviderFactory
+    class: Harmony\Bundle\SettingsManagerBundle\Provider\Factory\SimpleSettingsProviderFactory
     arguments:
         $serializer: '@settings_manager.serializer'
         $normalizedData:
@@ -196,7 +192,7 @@ setting_provider_factory.foo:
 
 ### DoctrineORM settings provider
 
-`Helis\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider`
+`Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider`
 
 This is a provider which reads and saves settings using `EntityManagerInterface`.
 
@@ -218,12 +214,12 @@ Configuration example:
 doctrine:
     orm:
         mappings:
-            HelisSettingsManagerBundle:
+            HarmonySettingsManagerBundle:
                 type: yml
                 is_bundle: true
                 dir: "Resources/config/doctrine"
-                alias: HelisSettingsManagerBundle
-                prefix: Helis\SettingsManagerBundle
+                alias: HarmonySettingsManagerBundle
+                prefix: Harmony\Bundle\SettingsManagerBundle
 ```
 
  2. Create setting entity
@@ -235,7 +231,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Helis\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
 
 /**
  * @ORM\Entity()
@@ -259,7 +255,7 @@ class Setting extends SettingModel
  4. Register settings provider:
 
 ```yaml
-Helis\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider:
+Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider:
     arguments:
         $entityManager: '@doctrine.orm.default_entity_manager'
         $settingsEntityClass: 'App\Entity\Setting'
@@ -269,7 +265,7 @@ Helis\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider:
 
 ### Cookie settings provider
 
-`Helis\SettingsManagerBundle\Provider\CookieSettingsProvider`
+`Harmony\Bundle\SettingsManagerBundle\Provider\CookieSettingsProvider`
 
 This is a provider, which only enables existing settings by using a cookie. Cookies are encoded, so that they could not be randomly enabled by users.
 
@@ -284,7 +280,7 @@ Required libraries:
  Configuration example:
 
 ```yaml
-Helis\SettingsManagerBundle\Provider\CookieSettingsProvider:
+Harmony\Bundle\SettingsManagerBundle\Provider\CookieSettingsProvider:
     arguments:
         $serializer: '@settings_manager.serializer'
     tags:
@@ -294,7 +290,7 @@ Helis\SettingsManagerBundle\Provider\CookieSettingsProvider:
 
 ### Asymmetric Cookie settings provider
 
-`Helis\SettingsManagerBundle\Provider\AsymmetricCookieSettingsProvider`
+`Harmony\Bundle\SettingsManagerBundle\Provider\AsymmetricCookieSettingsProvider`
 
 This is a provider, which only enables existing settings by using a cookie. Cookies are encoded with asymmetric private
 and public keys, so that they could not be randomly enabled by users.
@@ -310,7 +306,7 @@ Required libraries:
  Configuration example:
 
 ```yaml
-Helis\SettingsManagerBundle\Provider\AsymmetricCookieSettingsProvider:
+Harmony\Bundle\SettingsManagerBundle\Provider\AsymmetricCookieSettingsProvider:
     arguments:
         $serializer: '@settings_manager.serializer'
     tags:
@@ -320,7 +316,7 @@ Helis\SettingsManagerBundle\Provider\AsymmetricCookieSettingsProvider:
 
 ### AWS SSM settings provider
 
-`Helis\SettingsManagerBundle\Provider\AwsSsmSettingsProvider`
+`Harmony\Bundle\SettingsManagerBundle\Provider\AwsSsmSettingsProvider`
 
 This is a provider, which is used only for reading and updating existing ssm parameters as settings.
 
@@ -333,7 +329,7 @@ Required libraries:
 Configuration example:
 
 ```yaml
-Helis\SettingsManagerBundle\Provider\AwsSsmSettingsProvider:
+Harmony\Bundle\SettingsManagerBundle\Provider\AwsSsmSettingsProvider:
     arguments:
         - '@Aws\Ssm\SsmClient'
         - '@settings_manager.serializer'
@@ -344,7 +340,7 @@ Helis\SettingsManagerBundle\Provider\AwsSsmSettingsProvider:
 
 ### Phpredis decorating settings provider
 
-`Helis\SettingsManagerBundle\Provider\DecoratingRedisSettingsProvider`
+`Harmony\Bundle\SettingsManagerBundle\Provider\DecoratingRedisSettingsProvider`
 
 This provider is used to cache other settings providers like [DoctrineORM](#doctrineorm-settings-provider) or [AWS SSM](#aws-ssm-settings-provider). It uses Redis client, not [doctrine/cache providers](https://github.com/doctrine/cache) or [symfony/cache adapters](https://github.com/symfony/cache) because we want to take advantage of redis data structures for simplier invalidation process.
 
@@ -357,17 +353,17 @@ Required extensions:
 Configuration example:
 
 ```yaml
-Helis\SettingsManagerBundle\Provider\DecoratingRedisSettingsProvider:
-    decorates: 'Helis\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider'
+Harmony\Bundle\SettingsManagerBundle\Provider\DecoratingRedisSettingsProvider:
+    decorates: 'Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider'
     arguments:
-        $decoratingProvider: 'Helis\SettingsManagerBundle\Provider\DecoratingRedisSettingsProvider.inner'
+        $decoratingProvider: 'Harmony\Bundle\SettingsManagerBundle\Provider\DecoratingRedisSettingsProvider.inner'
         $redis: '@settings.cache.redis' # you need to register your own \Redis client in container
         $serializer: '@settings_manager.serializer'
 ```
 
 ### Predis decorating settings provider
 
-`Helis\SettingsManagerBundle\Provider\DecoratingPredisSettingsProvider`
+`Harmony\Bundle\SettingsManagerBundle\Provider\DecoratingPredisSettingsProvider`
 
 Same as [phpredis decorating settings provider](#phpredis-decorating-settings-provider) It just replaces the phpredis extension with [predis](https://github.com/nrk/predis).
 
@@ -380,7 +376,7 @@ Required libraries:
 ## Configuration reference
 
 ```yaml
-helis_settings_manager:
+harmony_settings_manager:
     settings:
         -
             name: foo
@@ -413,7 +409,7 @@ User interface can be used to change setting values, enable or disable domains.
 # Symfony4, config/routes/settings_manager.yaml
 
 settings_manager:
-    resource: '@HelisSettingsManagerBundle/Resources/config/routing.yml'
+    resource: '@HarmonySettingsManagerBundle/Resources/config/routing.yml'
     prefix: /settings
 ```
 
@@ -429,7 +425,7 @@ The Twig extension is also added to get settings in your twig templates. Just li
 
 ## Controller
 
-`Helis\SettingsManagerBundle\Controller\Traits\SettingsControllerTrait`
+`Harmony\Bundle\SettingsManagerBundle\Controller\Traits\SettingsControllerTrait`
 
 Adds a method to deny access, unless a setting is enabled. It's using `SettingsRouter`, which, again, will be injected by [autowire](https://symfony.com/doc/current/service_container/autowiring.html#autowiring-other-methods-e-g-setters).
 

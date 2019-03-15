@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Serializer\Normalizer;
+namespace Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer;
 
-use Helis\SettingsManagerBundle\Model\TagModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\TagModel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectToPopulateTrait;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Event;
+namespace Harmony\Bundle\SettingsManagerBundle\Event;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;

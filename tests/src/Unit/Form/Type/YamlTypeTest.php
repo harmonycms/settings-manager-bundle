@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Helis\SettingsManagerBundle\Tests\Unit\Form\Type;
+namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Form\Type;
 
-use Helis\SettingsManagerBundle\Form\Type\YamlType;
+use Harmony\Bundle\SettingsManagerBundle\Form\Type\YamlType;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class YamlTypeTest extends TypeTestCase
