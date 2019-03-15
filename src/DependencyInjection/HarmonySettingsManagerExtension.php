@@ -33,19 +33,15 @@ class HarmonySettingsManagerExtension extends Extension
         $config        = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.yml');
-        $loader->load('serializer.yml');
-        $loader->load('validators.yml');
-        $loader->load('command.yml');
+        $loader->load('services.yaml');
+        $loader->load('serializer.yaml');
+        $loader->load('validators.yaml');
+        $loader->load('command.yaml');
 
         $bundles = $container->getParameter('kernel.bundles');
 
         if (isset($bundles['TwigBundle'])) {
-            $loader->load('twig.yml');
-        }
-
-        if (isset($bundles['KnpMenuBundle'])) {
-            $loader->load('menu.yml');
+            $loader->load('twig.yaml');
         }
 
         if ($config['profiler']['enabled']) {
