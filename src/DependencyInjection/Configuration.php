@@ -10,12 +10,22 @@ use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * Class Configuration
+ *
+ * @package Harmony\Bundle\SettingsManagerBundle\DependencyInjection
+ */
 class Configuration implements ConfigurationInterface
 {
+
+    /**
+     * @return TreeBuilder
+     * @throws \ReflectionException
+     */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('harmony_settings_manager');
+        $treeBuilder = new TreeBuilder('harmony_settings_manager');
+        $rootNode = $treeBuilder->getRootNode();
         $rootNode
             ->children()
                 ->arrayNode('enqueue_extension')
@@ -63,6 +73,19 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('settings_files')
                     ->scalarPrototype()->end()
                 ->end()
+                ->arrayNode('settings_classes')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('setting_entity')
+                            ->info('Setting entity class (FQDN)')
+                            ->defaultValue('App\Entity\Setting')
+                        ->end()
+                        ->scalarNode('setting_tag_entity')
+                            ->info('SettingTag entity class (FQDN)')
+                            ->defaultValue('App\Entity\SettingTag')
+                        ->end()
+                    ->end()
+                ->end()
                 ->append($this->getSettingsNode())
                 ->append($this->getListenersNode())
             ->end();
@@ -72,11 +95,12 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @return NodeDefinition
+     * @throws \ReflectionException
      */
     private function getSettingsNode(): NodeDefinition
     {
-        $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('settings');
+        $treeBuilder = new TreeBuilder('settings');
+        $node = $treeBuilder->getRootNode();
         $node
         ->arrayPrototype()
             ->children()
@@ -155,8 +179,8 @@ class Configuration implements ConfigurationInterface
      */
     private function getListenersNode(): NodeDefinition
     {
-        $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('listeners');
+        $treeBuilder = new TreeBuilder('listeners');
+        $node = $treeBuilder->getRootNode();
         $node
             ->addDefaultsIfNotSet()
             ->children()

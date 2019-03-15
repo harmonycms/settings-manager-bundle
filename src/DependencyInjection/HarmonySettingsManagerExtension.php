@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\DependencyInjection;
 
+use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Harmony\Bundle\SettingsManagerBundle\DataCollector\SettingsCollector;
 use Harmony\Bundle\SettingsManagerBundle\Enqueue\Consumption\WarmupSettingsManagerExtension;
+use Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider;
 use Harmony\Bundle\SettingsManagerBundle\Provider\Factory\SimpleSettingsProviderFactory;
 use Harmony\Bundle\SettingsManagerBundle\Provider\LazyReadableSimpleSettingsProvider;
 use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
@@ -24,9 +26,22 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class HarmonySettingsManagerExtension
+ *
+ * @package Harmony\Bundle\SettingsManagerBundle\DependencyInjection
+ */
 class HarmonySettingsManagerExtension extends Extension
 {
 
+    /**
+     * Loads a specific configuration.
+     *
+     * @param array            $configs
+     * @param ContainerBuilder $container
+     *
+     * @throws \Exception
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
@@ -45,21 +60,29 @@ class HarmonySettingsManagerExtension extends Extension
         }
 
         if ($config['profiler']['enabled']) {
-            $this->loadDataCollector($config, $container);
+            $this->loadDataCollector($container);
         }
 
         if ($config['logger']['enabled']) {
             $container->setAlias('settings_manager.logger', $config['logger']['service_id']);
         }
 
-        $this->loadSettingsManager($config, $container);
-        $this->loadSettingsRouter($config, $container);
+        $this->loadSettingsManager($container);
+        $this->loadSettingsRouter($container);
         $this->loadSimpleProvider($config, $container);
+
+        if (class_exists(DoctrineOrmMappingsPass::class)) {
+            $this->loadOrmProvider($config, $container);
+        }
+
         $this->loadListeners($config['listeners'], $container);
         $this->loadEnqueueExtension($config['enqueue_extension'], $container);
     }
 
-    public function loadSettingsRouter(array $config, ContainerBuilder $container): void
+    /**
+     * @param ContainerBuilder $container
+     */
+    public function loadSettingsRouter(ContainerBuilder $container): void
     {
         $container->register(SettingsRouter::class, SettingsRouter::class)
             ->setPublic(true)
@@ -68,6 +91,10 @@ class HarmonySettingsManagerExtension extends Extension
             ->setArgument(2, new Reference(EventManagerInterface::class));
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
     private function loadEnqueueExtension(array $config, ContainerBuilder $container): void
     {
         if (!$config['enabled']) {
@@ -80,7 +107,10 @@ class HarmonySettingsManagerExtension extends Extension
             ->addTag('enqueue.consumption.extension', ['priority' => $config['priority']]);
     }
 
-    private function loadSettingsManager(array $config, ContainerBuilder $container): void
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function loadSettingsManager(ContainerBuilder $container): void
     {
         $container->register(SettingsManager::class, SettingsManager::class)
             ->setPublic(true)
@@ -91,6 +121,10 @@ class HarmonySettingsManagerExtension extends Extension
             ]);
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
     private function loadSimpleProvider(array $config, ContainerBuilder $container): void
     {
         $settings = array_merge($config['settings'],
@@ -129,6 +163,12 @@ class HarmonySettingsManagerExtension extends Extension
             ]);
     }
 
+    /**
+     * @param array            $files
+     * @param ContainerBuilder $container
+     *
+     * @return array
+     */
     private function loadSettingsFromFiles(array $files, ContainerBuilder $container): array
     {
         $configuration = new Configuration();
@@ -149,7 +189,10 @@ class HarmonySettingsManagerExtension extends Extension
         return $settings;
     }
 
-    private function loadDataCollector(array $config, ContainerBuilder $container): void
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function loadDataCollector(ContainerBuilder $container): void
     {
         $container->register(SettingsCollector::class, SettingsCollector::class)
             ->setArgument('$settingsStore', new Reference(SettingsStore::class))
@@ -160,6 +203,10 @@ class HarmonySettingsManagerExtension extends Extension
             ]);
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
     private function loadListeners(array $config, ContainerBuilder $container): void
     {
         if ($config['controller']['enabled']) {
@@ -175,5 +222,17 @@ class HarmonySettingsManagerExtension extends Extension
                 ->setPublic(false)
                 ->addTag('kernel.event_subscriber');
         }
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
+    private function loadOrmProvider(array $config, ContainerBuilder $container): void
+    {
+        $container->register(DoctrineOrmSettingsProvider::class, DoctrineOrmSettingsProvider::class)
+            ->setArgument('$entityManager', new Reference('doctrine.orm.default_entity_manager'))
+            ->setArgument('$settingsEntityClass', $config['settings_classes']['setting_entity'])
+            ->addTag('settings_manager.provider', ['provider' => 'orm', 'priority' => 20]);
     }
 }
