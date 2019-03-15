@@ -14,8 +14,14 @@ use Harmony\Bundle\SettingsManagerBundle\SettingsManagerEvents;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
+/**
+ * Class SettingsManager
+ *
+ * @package Harmony\Bundle\SettingsManagerBundle\Settings
+ */
 class SettingsManager implements LoggerAwareInterface
 {
+
     use LoggerAwareTrait;
 
     /**
@@ -34,7 +40,7 @@ class SettingsManager implements LoggerAwareInterface
      */
     public function __construct(array $providers, EventManagerInterface $eventManager)
     {
-        $this->providers = $providers;
+        $this->providers    = $providers;
         $this->eventManager = $eventManager;
     }
 
@@ -47,6 +53,23 @@ class SettingsManager implements LoggerAwareInterface
     }
 
     /**
+     * Get a single setting from a domain (optional).
+     *
+     * @param string $name
+     * @param string $domain
+     *
+     * @return SettingModel|mixed
+     */
+    public function getSetting(string $name, string $domain = 'default')
+    {
+        // Only 1 value by domain can exists
+        $settings = $this->getSettingsByName([$domain], [$name]);
+
+        // Get the first and unique value of array
+        return array_shift($settings);
+    }
+
+    /**
      * @param null|string $providerName
      * @param bool        $onlyEnabled
      *
@@ -54,7 +77,7 @@ class SettingsManager implements LoggerAwareInterface
      */
     public function getDomains(string $providerName = null, bool $onlyEnabled = false): array
     {
-        $domains = [];
+        $domains   = [];
         $providers = $providerName !== null ? [$providerName => $this->getProvider($providerName)] : $this->providers;
 
         foreach ($providers as $provider) {
@@ -91,7 +114,7 @@ class SettingsManager implements LoggerAwareInterface
                 } else {
                     $this->logger && $this->logger->warning('SettingsManager: received null setting', [
                         'sProviderName' => $pName,
-                        'sSettingName' => $settingNames,
+                        'sSettingName'  => $settingNames,
                     ]);
                 }
             }
@@ -166,23 +189,22 @@ class SettingsManager implements LoggerAwareInterface
         if ($settingModel->getProviderName()) {
             try {
                 $result = $this->providers[$settingModel->getProviderName()]->save($settingModel);
-            } catch (ReadOnlyProviderException $e) {
+            }
+            catch (ReadOnlyProviderException $e) {
                 $result = false;
             }
 
             if ($result === true) {
                 $this->logger && $this->logger->info('SettingsManager: setting updated', [
-                    'sSettingName' => $settingModel->getName(),
-                    'sSettingType' => $settingModel->getType()->getValue(),
-                    'sSettingValue' => json_encode($settingModel->getDataValue()),
-                    'sDomainName' => $settingModel->getDomain()->getName(),
+                    'sSettingName'   => $settingModel->getName(),
+                    'sSettingType'   => $settingModel->getType()->getValue(),
+                    'sSettingValue'  => json_encode($settingModel->getDataValue()),
+                    'sDomainName'    => $settingModel->getDomain()->getName(),
                     'sDomainEnabled' => $settingModel->getDomain()->isReadOnly(),
-                    'sProviderName' => $settingModel->getProviderName(),
+                    'sProviderName'  => $settingModel->getProviderName(),
                 ]);
-                $this->eventManager->dispatch(
-                    SettingsManagerEvents::SAVE_SETTING,
-                    new SettingChangeEvent($settingModel)
-                );
+                $this->eventManager->dispatch(SettingsManagerEvents::SAVE_SETTING,
+                    new SettingChangeEvent($settingModel));
 
                 return $result;
             }
@@ -202,21 +224,20 @@ class SettingsManager implements LoggerAwareInterface
             try {
                 if (!$provider->isReadOnly() && $provider->save($settingModel) !== false) {
                     $this->logger && $this->logger->info('SettingsManager: setting saved', [
-                        'sSettingName' => $settingModel->getName(),
-                        'sSettingType' => $settingModel->getType()->getValue(),
-                        'sSettingValue' => json_encode($settingModel->getDataValue()),
-                        'sDomainName' => $settingModel->getDomain()->getName(),
+                        'sSettingName'   => $settingModel->getName(),
+                        'sSettingType'   => $settingModel->getType()->getValue(),
+                        'sSettingValue'  => json_encode($settingModel->getDataValue()),
+                        'sDomainName'    => $settingModel->getDomain()->getName(),
                         'sDomainEnabled' => $settingModel->getDomain()->isReadOnly(),
-                        'sProviderName' => $settingModel->getProviderName(),
+                        'sProviderName'  => $settingModel->getProviderName(),
                     ]);
-                    $this->eventManager->dispatch(
-                        SettingsManagerEvents::SAVE_SETTING,
-                        new SettingChangeEvent($settingModel)
-                    );
+                    $this->eventManager->dispatch(SettingsManagerEvents::SAVE_SETTING,
+                        new SettingChangeEvent($settingModel));
 
                     return true;
                 }
-            } catch (ReadOnlyProviderException $e) {
+            }
+            catch (ReadOnlyProviderException $e) {
                 // go to next provider
             }
         }
@@ -246,9 +267,7 @@ class SettingsManager implements LoggerAwareInterface
         $changed = false;
 
         if ($settingModel->getProviderName()) {
-            $changed = $this
-                ->providers[$settingModel->getProviderName()]
-                ->delete($settingModel);
+            $changed = $this->providers[$settingModel->getProviderName()]->delete($settingModel);
         } else {
             foreach ($this->providers as $provider) {
                 if ($provider->delete($settingModel)) {
@@ -258,10 +277,7 @@ class SettingsManager implements LoggerAwareInterface
         }
 
         if ($changed) {
-            $this->eventManager->dispatch(
-                SettingsManagerEvents::DELETE_SETTING,
-                new SettingChangeEvent($settingModel)
-            );
+            $this->eventManager->dispatch(SettingsManagerEvents::DELETE_SETTING, new SettingChangeEvent($settingModel));
         }
 
         return $changed;
@@ -283,7 +299,7 @@ class SettingsManager implements LoggerAwareInterface
         }
 
         $this->logger && $this->logger->info('SettingsManager: domain copied', [
-            'sDomainName' => $domainName,
+            'sDomainName'   => $domainName,
             'sProviderName' => $providerName,
         ]);
     }
@@ -306,9 +322,9 @@ class SettingsManager implements LoggerAwareInterface
         }
 
         $this->logger && $this->logger->info('SettingsManager: domain updated', [
-            'sProviderName' => $providerName,
-            'sDomainName' => $domainModel->getName(),
-            'bDomainEnabled' => $domainModel->isEnabled(),
+            'sProviderName'   => $providerName,
+            'sDomainName'     => $domainModel->getName(),
+            'bDomainEnabled'  => $domainModel->isEnabled(),
             'iDomainPriority' => $domainModel->getPriority(),
         ]);
     }
@@ -332,7 +348,7 @@ class SettingsManager implements LoggerAwareInterface
 
         $this->logger && $this->logger->info('SettingsManager: domain deleted', [
             'sProviderName' => $providerName,
-            'sDomainName' => $domainName,
+            'sDomainName'   => $domainName,
         ]);
     }
 
