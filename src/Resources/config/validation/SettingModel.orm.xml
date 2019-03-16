@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+                      http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Harmony\Bundle\SettingsManagerBundle\Model\SettingModel">
+        <constraint name="Harmony\Bundle\SettingsManagerBundle\Validator\Constraints\SettingType">
+            <option name="groups">
+                <value>Default</value>
+            </option>
+        </constraint>
+        <property name="name">
+            <constraint name="NotBlank">
+                <option name="message">Setting name should not be blank</option>
+                <option name="groups">
+                    <value>Default</value>
+                </option>
+            </constraint>
+        </property>
+        <property name="domain">
+            <constraint name="NotBlank">
+                <option name="message">Setting should have a domain</option>
+                <option name="groups">
+                    <value>Default</value>
+                </option>
+            </constraint>
+        </property>
+        <property name="type">
+            <constraint name="NotBlank">
+                <option name="message">Setting should have a type</option>
+                <option name="groups">
+                    <value>Default</value>
+                </option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>
