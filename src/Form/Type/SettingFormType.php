@@ -37,7 +37,7 @@ class SettingFormType extends AbstractType
             }
 
             $options = [
-                'translation_domain' => 'HelisSettingsManager',
+                'translation_domain' => 'HarmonySettingsManager',
                 'label'              => false,
                 'help'               => $model->getDescription()
             ];
