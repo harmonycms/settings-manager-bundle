@@ -52,7 +52,7 @@ class HarmonySettingsManagerBundle extends Bundle
         $mappings = [
             realpath(__DIR__ . '/Resources/config/doctrine-mapping') => 'Harmony\Bundle\SettingsManagerBundle\Model'
         ];
-        if (class_exists(DoctrineOrmMappingsPass::class)) {
+        if (class_exists(DoctrineOrmMappingsPass::class) && $container->has('doctrine.orm.default_entity_manager')) {
             $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings));
         }
     }
