@@ -14,7 +14,7 @@
         <field name="enabled" column="enabled" type="boolean"/>
         <field name="readOnly" column="read_only" type="boolean">
             <options>
-                <option name="default">false</option>
+                <option name="default">0</option>
             </options>
         </field>
     </embeddable>
