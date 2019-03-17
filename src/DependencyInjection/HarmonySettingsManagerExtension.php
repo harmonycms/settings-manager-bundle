@@ -71,7 +71,7 @@ class HarmonySettingsManagerExtension extends Extension
         $this->loadSettingsRouter($container);
         $this->loadSimpleProvider($config, $container);
 
-        if ($container->has('doctrine.orm.default_entity_manager')) {
+        if (\class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
             $this->loadOrmProvider($config, $container);
         }
 
