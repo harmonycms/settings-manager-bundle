@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Settings;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
 use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use App\DataFixtures\ORM\LoadSettingsData;
@@ -43,7 +43,7 @@ class SettingsManagerTest extends WebTestCase
         $domains = $this->settingsManager->getDomains();
 
         $this->assertEquals(['default', 'omg', 'sea'], array_keys($domains));
-        $this->assertInstanceOf(DomainModel::class, reset($domains));
+        $this->assertInstanceOf(SettingDomain::class, reset($domains));
 
         // assert if keys match domain names
         foreach ($domains as $name => $domain) {
@@ -97,7 +97,7 @@ class SettingsManagerTest extends WebTestCase
         $setting = array_shift($settings);
 
         // setting from config, default domain
-        $testSaveDomain = (new DomainModel())->setName('test_save');
+        $testSaveDomain = (new SettingDomain())->setName('test_save');
         $setting->setDomain($testSaveDomain);
 
         $this->assertTrue($this->settingsManager->save($setting));
@@ -166,7 +166,7 @@ class SettingsManagerTest extends WebTestCase
         $domain->setEnabled(true);
 
         $this->settingsManager->updateDomain($domain);
-        /** @var SettingModel $setting */
+        /** @var Setting $setting */
         $setting = $this
             ->getContainer()
             ->get('doctrine')

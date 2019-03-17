@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Validator\Constraints;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -12,7 +12,7 @@ class SettingTypeValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        if (!$value instanceof SettingModel || !$constraint instanceof SettingType) {
+        if (!$value instanceof Setting || !$constraint instanceof SettingType) {
             return;
         }
 

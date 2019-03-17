@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Settings\Traits\DomainNameExtractTrait;
 use Predis\Client;
 use Predis\Pipeline\Pipeline;
@@ -68,7 +68,7 @@ class DecoratingPredisSettingsProvider implements SettingsProviderInterface
         foreach ($result as $d => $domainGroup) {
             foreach ($domainGroup as $s => $item) {
                 if ($item !== null) {
-                    $out[] = $this->serializer->deserialize($item, SettingModel::class, 'json');
+                    $out[] = $this->serializer->deserialize($item, Setting::class, 'json');
                 }
             }
         }
@@ -93,7 +93,7 @@ class DecoratingPredisSettingsProvider implements SettingsProviderInterface
         foreach ($result as $d => $domainGroup) {
             foreach ($domainGroup as $s => $item) {
                 if ($item !== null) {
-                    $out[] = $this->serializer->deserialize($item, SettingModel::class, 'json');
+                    $out[] = $this->serializer->deserialize($item, Setting::class, 'json');
                 }
             }
         }
@@ -101,7 +101,7 @@ class DecoratingPredisSettingsProvider implements SettingsProviderInterface
         return array_values(array_filter($out));
     }
 
-    public function save(SettingModel $settingModel): bool
+    public function save(Setting $settingModel): bool
     {
         $output = $this->decoratingProvider->save($settingModel);
 
@@ -128,7 +128,7 @@ class DecoratingPredisSettingsProvider implements SettingsProviderInterface
         return $output;
     }
 
-    public function delete(SettingModel $settingModel): bool
+    public function delete(Setting $settingModel): bool
     {
         $output = $this->decoratingProvider->delete($settingModel);
 
@@ -152,7 +152,7 @@ class DecoratingPredisSettingsProvider implements SettingsProviderInterface
 
         if ($domains) {
             foreach ($domains as &$domain) {
-                $domain = $this->serializer->deserialize($domain, DomainModel::class, 'json');
+                $domain = $this->serializer->deserialize($domain, SettingDomain::class, 'json');
             }
             return array_values($domains);
         }
@@ -170,7 +170,7 @@ class DecoratingPredisSettingsProvider implements SettingsProviderInterface
         return $domains;
     }
 
-    public function updateDomain(DomainModel $domainModel): bool
+    public function updateDomain(SettingDomain $domainModel): bool
     {
         $output = $this->decoratingProvider->updateDomain($domainModel);
 

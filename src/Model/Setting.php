@@ -7,18 +7,44 @@ namespace Harmony\Bundle\SettingsManagerBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class SettingModel
+/**
+ * Class Setting
+ *
+ * @package Harmony\Bundle\SettingsManagerBundle\Model
+ */
+class Setting
 {
+
+    /** @var string $name */
     protected $name;
+
+    /** @var string $description */
     protected $description;
+
+    /** @var string $domain */
     protected $domain;
+
+    /** @var ArrayCollection $tags */
     protected $tags;
+
+    /** @var Type $type */
     protected $type;
+
+    /** @var array $typeOptions */
     protected $typeOptions = [];
+
+    /** @var array $data */
     protected $data = [];
+
+    /** @var string $providerName */
     protected $providerName;
+
+    /** @var array $choices */
     protected $choices = [];
 
+    /**
+     * Setting constructor.
+     */
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -29,7 +55,7 @@ class SettingModel
         return $this->name;
     }
 
-    public function setName(string $name): SettingModel
+    public function setName(string $name): Setting
     {
         $this->name = $name;
 
@@ -41,19 +67,19 @@ class SettingModel
         return $this->description;
     }
 
-    public function setDescription(?string $description): SettingModel
+    public function setDescription(?string $description): Setting
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getDomain(): ?DomainModel
+    public function getDomain(): ?SettingDomain
     {
         return $this->domain;
     }
 
-    public function setDomain(DomainModel $domain): SettingModel
+    public function setDomain(SettingDomain $domain): Setting
     {
         $this->domain = $domain;
 
@@ -61,7 +87,7 @@ class SettingModel
     }
 
     /**
-     * @return TagModel[]|Collection
+     * @return SettingTag[]|Collection
      */
     public function getTags(): Collection
     {
@@ -69,18 +95,18 @@ class SettingModel
     }
 
     /**
-     * @param TagModel[]|Collection $tags
+     * @param SettingTag[]|Collection $tags
      *
-     * @return SettingModel
+     * @return Setting
      */
-    public function setTags(Collection $tags): SettingModel
+    public function setTags(Collection $tags): Setting
     {
         $this->tags = $tags;
 
         return $this;
     }
 
-    public function addTag(TagModel $tag): SettingModel
+    public function addTag(SettingTag $tag): Setting
     {
         if (!$this->tags->contains($tag)) {
             $this->tags->add($tag);
@@ -105,7 +131,7 @@ class SettingModel
         return $this->type;
     }
 
-    public function setType(Type $type): SettingModel
+    public function setType(Type $type): Setting
     {
         $this->type = $type;
 
@@ -123,9 +149,9 @@ class SettingModel
     /**
      * @param array $typeOptions
      *
-     * @return SettingModel
+     * @return Setting
      */
-    public function setTypeOptions(array $typeOptions): SettingModel
+    public function setTypeOptions(array $typeOptions): Setting
     {
         $this->typeOptions = $typeOptions;
 
@@ -140,7 +166,7 @@ class SettingModel
         return isset($this->data['value']) ? $this->data['value'] : null;
     }
 
-    public function setData($data): SettingModel
+    public function setData($data): Setting
     {
         $this->data['value'] = $data;
 
@@ -158,7 +184,7 @@ class SettingModel
     /**
      * @internal Used by serializer
      */
-    public function setDataValue(array $data): SettingModel
+    public function setDataValue(array $data): Setting
     {
         $this->data = $data;
 
@@ -170,7 +196,7 @@ class SettingModel
         return $this->providerName;
     }
 
-    public function setProviderName(string $providerName): SettingModel
+    public function setProviderName(string $providerName): Setting
     {
         $this->providerName = $providerName;
 
@@ -188,9 +214,9 @@ class SettingModel
     /**
      * @param array $choices
      *
-     * @return SettingModel
+     * @return Setting
      */
-    public function setChoices(array $choices): SettingModel
+    public function setChoices(array $choices): Setting
     {
         $this->choices = $choices;
 

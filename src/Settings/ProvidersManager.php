@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 use Harmony\Bundle\SettingsManagerBundle\Settings\Traits\DomainNameExtractTrait;
 
@@ -41,7 +41,8 @@ class ProvidersManager
 
     /**
      * @param string[] $domains
-     * @return SettingModel[]
+     *
+     * @return Setting[]
      */
     private function getSourceSettings(string $provider, array $domains): array
     {
@@ -55,7 +56,7 @@ class ProvidersManager
     }
 
     /**
-     * @param SettingModel[] $sourceSettings
+     * @param Setting[] $sourceSettings
      */
     private function warmUpProvider(SettingsProviderInterface $provider, array $sourceSettings): void
     {
@@ -74,9 +75,10 @@ class ProvidersManager
     }
 
     /**
-     * @param SettingModel[] $sourceSettings
-     * @param SettingModel[] $settings
-     * @return SettingModel[]
+     * @param Setting[] $sourceSettings
+     * @param Setting[] $settings
+     *
+     * @return Setting[]
      */
     private function getDiff(array $sourceSettings, array $settings): array
     {

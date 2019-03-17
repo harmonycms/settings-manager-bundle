@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 
 use App\Entity\Setting;
-use App\Entity\Tag;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use App\Entity\SettingTag;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
@@ -29,17 +29,17 @@ abstract class AbstractReadableSettingsProviderTest extends WebTestCase
 
     protected function getSettingFixtures(): array
     {
-        $tag1 = new Tag();
+        $tag1 = new SettingTag();
         $tag1->setName('fixture');
 
-        $domain1 = new DomainModel();
+        $domain1 = new SettingDomain();
         $domain1->setName('default');
 
-        $domain2 = new DomainModel();
+        $domain2 = new SettingDomain();
         $domain2->setName('sea');
         $domain2->setEnabled(true);
 
-        $domain3 = new DomainModel();
+        $domain3 = new SettingDomain();
         $domain3->setName('apples');
         $domain3->setEnabled(false);
 
@@ -134,7 +134,7 @@ abstract class AbstractReadableSettingsProviderTest extends WebTestCase
     {
         $settings = $this->provider->getSettings($domainNames);
 
-        $map =  array_map(function (SettingModel $model) {
+        $map =  array_map(function (Setting $model) {
             return [
                 $model->getName(),
                 $model->getDomain()->getName(),
@@ -208,7 +208,7 @@ abstract class AbstractReadableSettingsProviderTest extends WebTestCase
     {
         $settings = $this->provider->getSettingsByName($domainNames, $settingNames);
 
-        $map =  array_map(function (SettingModel $model) {
+        $map =  array_map(function (Setting $model) {
             return [
                 $model->getName(),
                 $model->getDomain()->getName(),
@@ -230,7 +230,7 @@ abstract class AbstractReadableSettingsProviderTest extends WebTestCase
 
     public function testGetDomains()
     {
-        $domainNames = array_map(function (DomainModel $model) {
+        $domainNames = array_map(function (SettingDomain $model) {
             return $model->getName();
         }, $this->provider->getDomains(false));
 
@@ -241,7 +241,7 @@ abstract class AbstractReadableSettingsProviderTest extends WebTestCase
 
     public function testGetOnlyEnabledDomains()
     {
-        $domainNames = array_map(function (DomainModel $model) {
+        $domainNames = array_map(function (SettingDomain $model) {
             return $model->getName();
         }, $this->provider->getDomains(true));
 

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Validator\Constraints;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use Harmony\Bundle\SettingsManagerBundle\Validator\Constraints\UniqueSetting;
 use Harmony\Bundle\SettingsManagerBundle\Validator\Constraints\UniqueSettingValidator;
@@ -34,9 +34,9 @@ class UniqueSettingValidatorTest extends ConstraintValidatorTestCase
             ->with(['dc'], ['batman'])
             ->willReturn([]);
 
-        $setting = new SettingModel();
+        $setting = new Setting();
         $setting->setName('batman');
-        $setting->setDomain((new DomainModel())->setName('dc'));
+        $setting->setDomain((new SettingDomain())->setName('dc'));
 
         $this->validator->validate($setting, new UniqueSetting());
         $this->assertNoViolation();
@@ -44,9 +44,9 @@ class UniqueSettingValidatorTest extends ConstraintValidatorTestCase
 
     public function testInvalid()
     {
-        $setting = new SettingModel();
+        $setting = new Setting();
         $setting->setName('batman');
-        $setting->setDomain((new DomainModel())->setName('dc'));
+        $setting->setDomain((new SettingDomain())->setName('dc'));
 
         $this
             ->settingsManager

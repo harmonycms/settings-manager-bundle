@@ -7,9 +7,9 @@ namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\TagModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingTag;
 use Harmony\Bundle\SettingsManagerBundle\Provider\Traits\WritableProviderTrait;
 
 /**
@@ -43,16 +43,16 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
     {
         $this->entityManager = $entityManager;
 
-        if (!is_subclass_of($settingsEntityClass, SettingModel::class)) {
+        if (!is_subclass_of($settingsEntityClass, Setting::class)) {
             throw new \UnexpectedValueException($settingsEntityClass . ' is not part of the model ' .
-                SettingModel::class);
+                Setting::class);
         }
 
         $this->settingsEntityClass = $settingsEntityClass;
 
         if ($tagEntityClass !== null) {
-            if (!is_subclass_of($tagEntityClass, TagModel::class)) {
-                throw new \UnexpectedValueException($tagEntityClass . ' is not part of the model ' . TagModel::class);
+            if (!is_subclass_of($tagEntityClass, SettingTag::class)) {
+                throw new \UnexpectedValueException($tagEntityClass . ' is not part of the model ' . SettingTag::class);
             }
 
             $this->tagEntityClass = $tagEntityClass;
@@ -64,7 +64,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      *
      * @param string[] $domainNames Domains names to check
      *
-     * @return SettingModel[]
+     * @return Setting[]
      */
     public function getSettings(array $domainNames): array
     {
@@ -84,7 +84,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      * @param string[] $domainNames  Domains names to check
      * @param string[] $settingNames Settings to check in those domains
      *
-     * @return SettingModel[]
+     * @return Setting[]
      */
     public function getSettingsByName(array $domainNames, array $settingNames): array
     {
@@ -105,7 +105,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      *
      * @param bool $onlyEnabled
      *
-     * @return DomainModel[]
+     * @return SettingDomain[]
      */
     public function getDomains(bool $onlyEnabled = false): array
     {
@@ -121,11 +121,11 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
             $qb->andWhere($qb->expr()->orX($qb->expr()->eq('s.domain.enabled', ':enabled'),
                 $qb->expr()->eq('s.domain.name', ':default_name')))
                 ->setParameter('enabled', true)
-                ->setParameter('default_name', DomainModel::DEFAULT_NAME);
+                ->setParameter('default_name', SettingDomain::DEFAULT_NAME);
         }
 
         return array_map(function ($row) {
-            $model = new DomainModel();
+            $model = new SettingDomain();
             $model->setName($row['name']);
             $model->setPriority($row['priority']);
             $model->setEnabled($row['enabled']);
@@ -140,12 +140,12 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      * Settings manager can still try to call this method even if it's read only.
      * In case make sure it throws ReadOnlyProviderException.
      *
-     * @param SettingModel $settingModel
+     * @param Setting $settingModel
      *
      * @return bool Status of save process
      * @throws ReadOnlyProviderException When provider is read only
      */
-    public function save(SettingModel $settingModel): bool
+    public function save(Setting $settingModel): bool
     {
         if ($this->entityManager->contains($settingModel)) {
             $this->entityManager->persist($settingModel);
@@ -174,12 +174,12 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
     /**
      * Removes setting from provider.
      *
-     * @param SettingModel $settingModel
+     * @param Setting $settingModel
      *
      * @return bool
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function delete(SettingModel $settingModel): bool
+    public function delete(Setting $settingModel): bool
     {
         $qb = $this->entityManager->createQueryBuilder();
         $qb->delete($this->settingsEntityClass, 's')->where($qb->expr()->andX($qb->expr()->eq('s.name', ':sname'),
@@ -200,12 +200,12 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
     /**
      * Updates domain model in provider.
      *
-     * @param DomainModel $domainModel
+     * @param SettingDomain $domainModel
      *
      * @return bool
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function updateDomain(DomainModel $domainModel): bool
+    public function updateDomain(SettingDomain $domainModel): bool
     {
         $qb = $this->entityManager->createQueryBuilder();
         $qb->update($this->settingsEntityClass, 's')
@@ -250,16 +250,16 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
     }
 
     /**
-     * @param SettingModel $model
+     * @param Setting $model
      *
-     * @return SettingModel
+     * @return Setting
      */
-    protected function transformModelToEntity(SettingModel $model): SettingModel
+    protected function transformModelToEntity(Setting $model): Setting
     {
         // transform setting
 
         if (!$model instanceof $this->settingsEntityClass) {
-            /** @var SettingModel $entity */
+            /** @var Setting $entity */
             $entity = new $this->settingsEntityClass();
             $entity->setName($model->getName())
                 ->setType($model->getType())
@@ -288,7 +288,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
             }
 
             if (count($tagNamesToFetch) > 0) {
-                /** @var TagModel[] $fetchedTags */
+                /** @var SettingTag[] $fetchedTags */
                 $fetchedTags = $this->entityManager->getRepository($this->tagEntityClass)
                     ->findBy(['name' => $tagNamesToFetch]);
 
@@ -299,7 +299,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
                     }
 
                     foreach (array_diff($tagNamesToFetch, $fetchedTagNames) as $newTagName) {
-                        /** @var TagModel $newTag */
+                        /** @var SettingTag $newTag */
                         $newTag = new $this->tagEntityClass();
                         $newTag->setName($newTagName);
                         $fetchedTags[] = $newTag;

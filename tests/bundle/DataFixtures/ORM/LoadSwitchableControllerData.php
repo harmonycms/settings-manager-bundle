@@ -7,14 +7,14 @@ namespace App\DataFixtures\ORM;
 use App\Entity\Setting;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 
 class LoadSwitchableControllerData extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $domain = new DomainModel();
+        $domain = new SettingDomain();
         $domain->setName('default');
 
         $setting = new Setting();

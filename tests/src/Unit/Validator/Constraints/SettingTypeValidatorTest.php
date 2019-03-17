@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Validator\Constraints;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Harmony\Bundle\SettingsManagerBundle\Validator\Constraints\SettingType;
 use PHPUnit\Framework\TestCase;
@@ -50,7 +50,7 @@ class SettingTypeValidatorTest extends TestCase
      */
     public function testValid(Type $type, $data)
     {
-        $setting = new SettingModel();
+        $setting = new Setting();
         $setting->setType($type);
         $setting->setData($data);
 
@@ -83,7 +83,7 @@ class SettingTypeValidatorTest extends TestCase
      */
     public function testInvalid(Type $type, $data, string $message)
     {
-        $setting = new SettingModel();
+        $setting = new Setting();
         $setting->setType($type);
         $setting->setData($data);
 

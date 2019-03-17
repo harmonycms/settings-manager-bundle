@@ -6,7 +6,7 @@ namespace Harmony\Bundle\SettingsManagerBundle\Controller;
 
 use Harmony\Bundle\SettingsManagerBundle\Event\SettingChangeEvent;
 use Harmony\Bundle\SettingsManagerBundle\Form\SettingFormType;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Harmony\Bundle\SettingsManagerBundle\Settings\EventManagerInterface;
 use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
@@ -38,7 +38,7 @@ class SettingsController extends AbstractController
     {
         $settings = $this->settingsManager->getSettingsByDomain([$domainName]);
 
-        if ($domainName !== DomainModel::DEFAULT_NAME && count($settings) === 0) {
+        if ($domainName !== SettingDomain::DEFAULT_NAME && count($settings) === 0) {
             return $this->redirectToRoute('settings_index');
         }
 
@@ -125,7 +125,7 @@ class SettingsController extends AbstractController
         }
 
         $setting = clone $setting;
-        $setting->setDomain((new DomainModel())->setName($toDomainName));
+        $setting->setDomain((new SettingDomain())->setName($toDomainName));
 
         $violations = $this->validator->validate($setting, null, ['Default', 'Duplication']);
         if ($violations->count() !== 0) {

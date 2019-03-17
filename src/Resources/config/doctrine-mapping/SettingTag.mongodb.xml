@@ -4,7 +4,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\TagModel">
+    <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\SettingTag">
         <field name="name" fieldName="name" type="string" unique="true"/>
     </mapped-superclass>
 

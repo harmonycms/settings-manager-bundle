@@ -5,7 +5,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 
 /**
  * Class Setting
@@ -13,7 +13,7 @@ use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
  * @ORM\Entity()
  * @ORM\Table(name="settings_test_setting")
  */
-class Setting extends SettingModel
+class Setting extends Setting
 {
     /**
      * @var int
@@ -25,7 +25,7 @@ class Setting extends SettingModel
     protected $id;
 
     /**
-     * @var ArrayCollection|Tag[]
+     * @var ArrayCollection|SettingTag[]
      *
      * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinTable(name="settings_test_setting__tag",

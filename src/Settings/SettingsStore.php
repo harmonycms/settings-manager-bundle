@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 
 class SettingsStore extends ArrayCollection
 {
     /**
-     * @var SettingModel[][]
+     * @var Setting[][]
      */
     private $settingsByProvider;
 
@@ -28,7 +28,7 @@ class SettingsStore extends ArrayCollection
     }
 
     /**
-     * @param SettingModel[] $settings
+     * @param Setting[] $settings
      */
     public function setSettings(array $settings): void
     {
@@ -37,7 +37,7 @@ class SettingsStore extends ArrayCollection
         }
     }
 
-    public function addSetting(string $settingName, ?SettingModel $settingModel): void
+    public function addSetting(string $settingName, ?Setting $settingModel): void
     {
         if ($settingModel !== null) {
             if ($settingName !== $settingModel->getName()) {
@@ -53,7 +53,7 @@ class SettingsStore extends ArrayCollection
     /**
      * @param string $providerName
      *
-     * @return SettingModel[]
+     * @return Setting[]
      */
     public function getByProvider(string $providerName): array
     {

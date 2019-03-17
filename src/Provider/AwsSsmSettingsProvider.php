@@ -7,8 +7,8 @@ namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 use Aws\Ssm\SsmClient;
 use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
 use Harmony\Bundle\SettingsManagerBundle\Exception\UnknownTypeException;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Harmony\Bundle\SettingsManagerBundle\Provider\Traits\ReadOnlyProviderTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -60,7 +60,7 @@ class AwsSsmSettingsProvider extends SimpleSettingsProvider
         return parent::getDomains($onlyEnabled);
     }
 
-    public function save(SettingModel $settingModel): bool
+    public function save(Setting $settingModel): bool
     {
         if (!in_array($settingModel->getName(), $this->parameterNames)) {
             throw new ReadOnlyProviderException(get_class($this));
@@ -89,7 +89,7 @@ class AwsSsmSettingsProvider extends SimpleSettingsProvider
                 [
                     'name' => $parameter['Name'],
                     'domain' => [
-                        'name' => DomainModel::DEFAULT_NAME,
+                        'name' => SettingDomain::DEFAULT_NAME,
                         'enabled' => true,
                     ],
                     'type' => $this->resolveType($value),
@@ -97,7 +97,7 @@ class AwsSsmSettingsProvider extends SimpleSettingsProvider
                         'value' => $value,
                     ],
                 ],
-                SettingModel::class
+                Setting::class
             );
             $this->settings[] = $setting;
         }

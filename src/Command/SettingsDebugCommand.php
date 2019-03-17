@@ -2,7 +2,7 @@
 
 namespace Harmony\Bundle\SettingsManagerBundle\Command;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
@@ -164,11 +164,11 @@ EOF
     }
 
     /**
-     * @param SettingModel $settingModel
+     * @param Setting $settingModel
      *
      * @return array
      */
-    private function _renderSettingsRow(SettingModel $settingModel): array
+    private function _renderSettingsRow(Setting $settingModel): array
     {
         if ($tags = $settingModel->getTags()) {
             $tagInformation = [];

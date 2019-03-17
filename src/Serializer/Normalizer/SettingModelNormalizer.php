@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\TagModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingTag;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -29,13 +29,13 @@ class SettingModelNormalizer implements NormalizerInterface, DenormalizerInterfa
         isset($data['name']) && $object->setName($data['name']);
         isset($data['description']) && $object->setDescription($data['description']);
         isset($data['domain']) && $object->setDomain(
-            $this->serializer->denormalize($data['domain'], DomainModel::class, $format, $context)
+            $this->serializer->denormalize($data['domain'], SettingDomain::class, $format, $context)
         );
         isset($data['type']) && $object->setType(new Type($data['type']));
         isset($data['type_options']) && $object->setTypeOptions($data['type_options']);
         isset($data['data']) && $object->setDataValue($data['data']);
         isset($data['tags']) && $object->setTags(new ArrayCollection(
-            $this->serializer->denormalize($data['tags'], TagModel::class . '[]', $format, $context)
+            $this->serializer->denormalize($data['tags'], SettingTag::class . '[]', $format, $context)
         ));
         isset($data['choices']) && $object->setChoices($data['choices']);
 
@@ -47,13 +47,12 @@ class SettingModelNormalizer implements NormalizerInterface, DenormalizerInterfa
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return is_a($type, SettingModel::class, true);
+        return is_a($type, Setting::class, true);
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @param SettingModel $object
+     * @param Setting $object
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -74,6 +73,6 @@ class SettingModelNormalizer implements NormalizerInterface, DenormalizerInterfa
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof SettingModel;
+        return $data instanceof Setting;
     }
 }

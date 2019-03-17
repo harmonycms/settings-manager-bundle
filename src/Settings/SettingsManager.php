@@ -7,8 +7,8 @@ namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 use Harmony\Bundle\SettingsManagerBundle\Event\SettingChangeEvent;
 use Harmony\Bundle\SettingsManagerBundle\Exception\ProviderNotFoundException;
 use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 use Harmony\Bundle\SettingsManagerBundle\SettingsManagerEvents;
 use Psr\Log\LoggerAwareInterface;
@@ -58,7 +58,7 @@ class SettingsManager implements LoggerAwareInterface
      * @param string $name
      * @param string $domain
      *
-     * @return SettingModel|mixed
+     * @return Setting|mixed
      */
     public function getSetting(string $name, string $domain = 'default')
     {
@@ -73,7 +73,7 @@ class SettingsManager implements LoggerAwareInterface
      * @param null|string $providerName
      * @param bool        $onlyEnabled
      *
-     * @return DomainModel[]
+     * @return SettingDomain[]
      */
     public function getDomains(string $providerName = null, bool $onlyEnabled = false): array
     {
@@ -97,7 +97,7 @@ class SettingsManager implements LoggerAwareInterface
      * @param string[] $domainNames
      * @param string[] $settingNames
      *
-     * @return SettingModel[]
+     * @return Setting[]
      */
     public function getSettingsByName(array $domainNames, array $settingNames): array
     {
@@ -107,7 +107,7 @@ class SettingsManager implements LoggerAwareInterface
         foreach (array_reverse($this->providers) as $pName => $provider) {
             $providerSettings = [];
             foreach ($provider->getSettingsByName($domainNames, $settingNames) as $settingModel) {
-                if ($settingModel instanceof SettingModel) {
+                if ($settingModel instanceof Setting) {
                     $settingModel->setProviderName($pName);
                     $providerSettings[] = $settingModel;
                     unset($settingNames[array_search($settingModel->getName(), $settingNames, true)]);
@@ -133,7 +133,7 @@ class SettingsManager implements LoggerAwareInterface
     /**
      * @param string[] $domainNames
      *
-     * @return SettingModel[]
+     * @return Setting[]
      */
     public function getSettingsByDomain(array $domainNames): array
     {
@@ -156,7 +156,7 @@ class SettingsManager implements LoggerAwareInterface
      * @param string[] $domainNames
      * @param string   $tagName
      *
-     * @return SettingModel[]
+     * @return Setting[]
      */
     public function getEnabledSettingsByTag(array $domainNames, string $tagName): array
     {
@@ -180,11 +180,11 @@ class SettingsManager implements LoggerAwareInterface
     /**
      * Tries to update an existing provider or saves to a new provider.
      *
-     * @param SettingModel $settingModel
+     * @param Setting $settingModel
      *
      * @return bool
      */
-    public function save(SettingModel $settingModel): bool
+    public function save(Setting $settingModel): bool
     {
         if ($settingModel->getProviderName()) {
             try {
@@ -248,21 +248,21 @@ class SettingsManager implements LoggerAwareInterface
     /**
      * @deprecated use save()
      *
-     * @param SettingModel $settingModel
+     * @param Setting $settingModel
      *
      * @return bool
      */
-    public function update(SettingModel $settingModel): bool
+    public function update(Setting $settingModel): bool
     {
         return $this->save($settingModel);
     }
 
     /**
-     * @param SettingModel $settingModel
+     * @param Setting $settingModel
      *
      * @return bool
      */
-    public function delete(SettingModel $settingModel): bool
+    public function delete(Setting $settingModel): bool
     {
         $changed = false;
 
@@ -305,10 +305,10 @@ class SettingsManager implements LoggerAwareInterface
     }
 
     /**
-     * @param DomainModel $domainModel
-     * @param null|string $providerName
+     * @param SettingDomain $domainModel
+     * @param null|string   $providerName
      */
-    public function updateDomain(DomainModel $domainModel, string $providerName = null): void
+    public function updateDomain(SettingDomain $domainModel, string $providerName = null): void
     {
         if ($providerName !== null) {
             $provider = $this->getProvider($providerName);

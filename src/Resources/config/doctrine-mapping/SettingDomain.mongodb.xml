@@ -4,7 +4,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\DomainModel">
+    <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain">
         <field name="name" fieldName="name" type="string"/>
         <field name="priority" fieldName="priority" type="integer"/>
         <field name="enabled" fieldName="enabled" type="boolean"/>

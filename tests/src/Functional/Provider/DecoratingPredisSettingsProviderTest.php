@@ -9,7 +9,7 @@ use Predis\Client;
 use Predis\CommunicationException;
 use Harmony\Bundle\SettingsManagerBundle\Provider\DecoratingPredisSettingsProvider;
 use App\Entity\Setting;
-use App\Entity\Tag;
+use App\Entity\SettingTag;
 
 class DecoratingPredisSettingsProviderTest extends AbstractSettingsProviderTest
 {
@@ -44,7 +44,7 @@ class DecoratingPredisSettingsProviderTest extends AbstractSettingsProviderTest
             new DoctrineOrmSettingsProvider(
                 $container->get('doctrine.orm.default_entity_manager'),
                 Setting::class,
-                Tag::class
+                SettingTag::class
             ),
             $this->redis,
             $container->get('test.settings_manager.serializer')

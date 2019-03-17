@@ -7,8 +7,8 @@ namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 use Aws\Result;
 use Aws\Ssm\SsmClient;
 use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Harmony\Bundle\SettingsManagerBundle\Provider\AwsSsmSettingsProvider;
 use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\DomainModelNormalizer;
@@ -65,8 +65,8 @@ class AwsSsmSettingsProviderTest extends TestCase
                 [['Names' => []], $awsResult],
             ]);
 
-        /** @var SettingModel[] $settings */
-        $settings = $settingsProvider->getSettings([DomainModel::DEFAULT_NAME]);
+        /** @var Setting[] $settings */
+        $settings = $settingsProvider->getSettings([SettingDomain::DEFAULT_NAME]);
 
         $this->assertCount(0, $settings);
     }
@@ -93,13 +93,13 @@ class AwsSsmSettingsProviderTest extends TestCase
                 [['Names' => ['parameter_a']], $awsResult],
             ]);
 
-        /** @var SettingModel[] $settings */
-        $settings = $settingsProvider->getSettings([DomainModel::DEFAULT_NAME]);
+        /** @var Setting[] $settings */
+        $settings = $settingsProvider->getSettings([SettingDomain::DEFAULT_NAME]);
 
         $this->assertCount(1, $settings);
 
         $this->assertSame('Parameter A Name', $settings[0]->getName());
-        $this->assertSame(DomainModel::DEFAULT_NAME, $settings[0]->getDomain()->getName());
+        $this->assertSame(SettingDomain::DEFAULT_NAME, $settings[0]->getDomain()->getName());
         $this->assertSame(Type::STRING, $settings[0]->getType()->getValue());
         $this->assertSame('a_value', $settings[0]->getData());
     }
@@ -140,28 +140,28 @@ class AwsSsmSettingsProviderTest extends TestCase
                 [['Names' => ['parameter_a', 'parameter_b', 'parameter_c', 'parameter_d']], $awsResult],
             ]);
 
-        /** @var SettingModel[] $settings */
-        $settings = $settingsProvider->getSettings([DomainModel::DEFAULT_NAME]);
+        /** @var Setting[] $settings */
+        $settings = $settingsProvider->getSettings([SettingDomain::DEFAULT_NAME]);
 
         $this->assertCount(4, $settings);
 
         $this->assertSame('Parameter A Name', $settings[0]->getName());
-        $this->assertSame(DomainModel::DEFAULT_NAME, $settings[0]->getDomain()->getName());
+        $this->assertSame(SettingDomain::DEFAULT_NAME, $settings[0]->getDomain()->getName());
         $this->assertSame(Type::STRING, $settings[0]->getType()->getValue());
         $this->assertSame('a_value', $settings[0]->getData());
 
         $this->assertSame('Parameter B Name', $settings[1]->getName());
-        $this->assertSame(DomainModel::DEFAULT_NAME, $settings[1]->getDomain()->getName());
+        $this->assertSame(SettingDomain::DEFAULT_NAME, $settings[1]->getDomain()->getName());
         $this->assertSame(Type::STRING, $settings[1]->getType()->getValue());
         $this->assertSame('b_value', $settings[1]->getData());
 
         $this->assertSame('Parameter C Name', $settings[2]->getName());
-        $this->assertSame(DomainModel::DEFAULT_NAME, $settings[2]->getDomain()->getName());
+        $this->assertSame(SettingDomain::DEFAULT_NAME, $settings[2]->getDomain()->getName());
         $this->assertSame(Type::STRING, $settings[2]->getType()->getValue());
         $this->assertSame('c_value', $settings[2]->getData());
 
         $this->assertSame('Parameter D Name', $settings[3]->getName());
-        $this->assertSame(DomainModel::DEFAULT_NAME, $settings[3]->getDomain()->getName());
+        $this->assertSame(SettingDomain::DEFAULT_NAME, $settings[3]->getDomain()->getName());
         $this->assertSame(Type::YAML, $settings[3]->getType()->getValue());
         $this->assertSame(['parameter_d_1', 'parameter_d_2', 'parameter_d_3'], $settings[3]->getData());
     }
@@ -184,15 +184,15 @@ class AwsSsmSettingsProviderTest extends TestCase
                 [['Names' => []], $awsResult],
             ]);
 
-        $settingsProvider->getSettings([DomainModel::DEFAULT_NAME]);
-        $settingsProvider->getSettings([DomainModel::DEFAULT_NAME]);
+        $settingsProvider->getSettings([SettingDomain::DEFAULT_NAME]);
+        $settingsProvider->getSettings([SettingDomain::DEFAULT_NAME]);
     }
 
     public function testSave(): void
     {
         $settingsProvider = $this->createSettingsProvider(['Parameter A Name']);
 
-        $setting = (new SettingModel())
+        $setting = (new Setting())
             ->setName('Parameter A Name')
             ->setData('a_value');
 
@@ -218,7 +218,7 @@ class AwsSsmSettingsProviderTest extends TestCase
 
         $settingsProvider = $this->createSettingsProvider(['Parameter A Name']);
 
-        $setting = (new SettingModel())
+        $setting = (new Setting())
             ->setName('Invalid parameter A Name')
             ->setData('a_value');
 

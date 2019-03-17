@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Harmony\Bundle\SettingsManagerBundle\Tests\Unit\Form;
 
 use Harmony\Bundle\SettingsManagerBundle\Form\SettingFormType;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Symfony\Component\Form\Test\TypeTestCase;
 
@@ -15,7 +15,7 @@ class SettingFormTypeTest extends TypeTestCase
     public function submitValidDataProvider()
     {
         // test bool submit
-        $data1 = new SettingModel();
+        $data1 = new Setting();
         $data1->setType(Type::BOOL());
 
         $formData1 = [
@@ -24,17 +24,17 @@ class SettingFormTypeTest extends TypeTestCase
             'data' => 1,
         ];
 
-        $object1 = new SettingModel();
+        $object1 = new Setting();
         $object1
             ->setDescription('lorem ipsum')
-            ->setDomain(new DomainModel())
+            ->setDomain(new SettingDomain())
             ->setType(Type::BOOL())
             ->setData(true);
 
         yield [$formData1, $data1, $object1];
 
         // test string submit
-        $data2 = new SettingModel();
+        $data2 = new Setting();
         $data2->setType(Type::STRING());
 
         $formData2 = [
@@ -42,16 +42,16 @@ class SettingFormTypeTest extends TypeTestCase
             'data' => 2.5678,
         ];
 
-        $object2 = new SettingModel();
+        $object2 = new Setting();
         $object2
             ->setType(Type::STRING())
-            ->setDomain(new DomainModel())
+            ->setDomain(new SettingDomain())
             ->setData('2.5678');
 
         yield [$formData2, $data2, $object2];
 
         // test float submit
-        $data3 = new SettingModel();
+        $data3 = new Setting();
         $data3->setType(Type::FLOAT());
 
         $formData3 = [
@@ -59,16 +59,16 @@ class SettingFormTypeTest extends TypeTestCase
             'data' => 2.5678,
         ];
 
-        $object3 = new SettingModel();
+        $object3 = new Setting();
         $object3
             ->setType(Type::FLOAT())
-            ->setDomain(new DomainModel())
+            ->setDomain(new SettingDomain())
             ->setData(2.57);
 
         yield [$formData3, $data3, $object3];
 
         // test integer submit
-        $data4 = new SettingModel();
+        $data4 = new Setting();
         $data4->setType(Type::INT());
 
         $formData4 = [
@@ -76,23 +76,23 @@ class SettingFormTypeTest extends TypeTestCase
             'data' => 2.5678,
         ];
 
-        $object4 = new SettingModel();
+        $object4 = new Setting();
         $object4
             ->setType(Type::INT())
-            ->setDomain(new DomainModel())
+            ->setDomain(new SettingDomain())
             ->setData(2);
 
         yield [$formData4, $data4, $object4];
     }
 
     /**
-     * @param array        $formData
-     * @param SettingModel $data
-     * @param SettingModel $expectedObject
+     * @param array   $formData
+     * @param Setting $data
+     * @param Setting $expectedObject
      *
      * @dataProvider submitValidDataProvider
      */
-    public function testSubmitValidData(array $formData, SettingModel $data, SettingModel $expectedObject)
+    public function testSubmitValidData(array $formData, Setting $data, Setting $expectedObject)
     {
         $form = $this->factory->create(SettingFormType::class, $data);
         $form->submit($formData);

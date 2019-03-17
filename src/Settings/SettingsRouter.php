@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Harmony\Bundle\SettingsManagerBundle\Settings;
 
 use Harmony\Bundle\SettingsManagerBundle\Event\GetSettingEvent;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\SettingsManagerEvents;
 
 class SettingsRouter
@@ -102,7 +102,7 @@ class SettingsRouter
     {
         $setting = $this->getSetting($settingName);
 
-        return $setting instanceof SettingModel ? $setting->getData() : $defaultValue;
+        return $setting instanceof Setting ? $setting->getData() : $defaultValue;
     }
 
     /**
@@ -110,9 +110,9 @@ class SettingsRouter
      *
      * @param string $settingName
      *
-     * @return SettingModel
+     * @return Setting
      */
-    public function getSetting(string $settingName): ?SettingModel
+    public function getSetting(string $settingName): ?Setting
     {
         if ($this->settingsStore->containsKey($settingName)) {
             $setting = $this->settingsStore->get($settingName);
@@ -130,7 +130,7 @@ class SettingsRouter
             }
         }
 
-        if ($setting instanceof SettingModel) {
+        if ($setting instanceof Setting) {
             $this->eventManager->dispatch(SettingsManagerEvents::GET_SETTING, new GetSettingEvent($setting));
         }
 
@@ -169,7 +169,7 @@ class SettingsRouter
     {
         if (empty($this->settingsStore->getDomainNames()) || $force) {
             $this->settingsStore->setDomainNames(array_map(
-                function (DomainModel $domainModel) {
+                function (SettingDomain $domainModel) {
                     return $domainModel->getName();
                 },
                 $this->settingsManager->getDomains(null, true)

@@ -6,9 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\TagModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingTag;
 use Harmony\Bundle\SettingsManagerBundle\Provider\Traits\WritableProviderTrait;
 
 /**
@@ -42,16 +42,16 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
     {
         $this->registry = $registry;
 
-        if (!is_subclass_of($settingsDocumentClass, SettingModel::class)) {
+        if (!is_subclass_of($settingsDocumentClass, Setting::class)) {
             throw new \UnexpectedValueException($settingsDocumentClass . ' is not part of the model ' .
-                SettingModel::class);
+                Setting::class);
         }
 
         $this->settingsDocumentClass = $settingsDocumentClass;
 
         if ($tagDocumentClass !== null) {
-            if (!is_subclass_of($tagDocumentClass, TagModel::class)) {
-                throw new \UnexpectedValueException($tagDocumentClass . ' is not part of the model ' . TagModel::class);
+            if (!is_subclass_of($tagDocumentClass, SettingTag::class)) {
+                throw new \UnexpectedValueException($tagDocumentClass . ' is not part of the model ' . SettingTag::class);
             }
 
             $this->tagDocumentClass = $tagDocumentClass;
@@ -63,7 +63,7 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
      *
      * @param string[] $domainNames Domains names to check
      *
-     * @return SettingModel[]
+     * @return Setting[]
      */
     public function getSettings(array $domainNames): array
     {
@@ -79,7 +79,7 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
      * @param string[] $domainNames  Domains names to check
      * @param string[] $settingNames Settings to check in those domains
      *
-     * @return SettingModel[]
+     * @return Setting[]
      */
     public function getSettingsByName(array $domainNames, array $settingNames): array
     {
@@ -95,12 +95,12 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
      * Settings manager can still try to call this method even if it's read only.
      * In case make sure it throws ReadOnlyProviderException.
      *
-     * @param SettingModel $settingModel
+     * @param Setting $settingModel
      *
      * @return bool Status of save process
      * @throws ReadOnlyProviderException When provider is read only
      */
-    public function save(SettingModel $settingModel): bool
+    public function save(Setting $settingModel): bool
     {
         if ($this->registry->getManager()->contains($settingModel)) {
             $this->registry->getManager()->persist($settingModel);
@@ -129,11 +129,11 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
     /**
      * Removes setting from provider.
      *
-     * @param SettingModel $settingModel
+     * @param Setting $settingModel
      *
      * @return bool
      */
-    public function delete(SettingModel $settingModel): bool
+    public function delete(Setting $settingModel): bool
     {
         return false;
     }
@@ -143,7 +143,7 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
      *
      * @param bool $onlyEnabled
      *
-     * @return DomainModel[]
+     * @return SettingDomain[]
      */
     public function getDomains(bool $onlyEnabled = false): array
     {
@@ -153,11 +153,11 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
     /**
      * Updates domain model in provider.
      *
-     * @param DomainModel $domainModel
+     * @param SettingDomain $domainModel
      *
      * @return bool
      */
-    public function updateDomain(DomainModel $domainModel): bool
+    public function updateDomain(SettingDomain $domainModel): bool
     {
         return false;
     }
@@ -175,17 +175,17 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
     }
 
     /**
-     * @param SettingModel $model
+     * @param Setting $model
      *
-     * @return SettingModel
+     * @return Setting
      */
-    protected function transformModelToDocument(SettingModel $model): SettingModel
+    protected function transformModelToDocument(Setting $model): Setting
     {
 
         // transform setting
 
         if (!$model instanceof $this->settingsDocumentClass) {
-            /** @var SettingModel $document */
+            /** @var Setting $document */
             $document = new $this->settingsDocumentClass();
             $document->setName($model->getName())
                 ->setType($model->getType())
@@ -214,7 +214,7 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
             }
 
             if (count($tagNamesToFetch) > 0) {
-                /** @var TagModel[] $fetchedTags */
+                /** @var SettingTag[] $fetchedTags */
                 $fetchedTags = $this->registry->getRepository($this->tagDocumentClass)
                     ->findBy(['name' => $tagNamesToFetch]);
 
@@ -225,7 +225,7 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
                     }
 
                     foreach (array_diff($tagNamesToFetch, $fetchedTagNames) as $newTagName) {
-                        /** @var TagModel $newTag */
+                        /** @var SettingTag $newTag */
                         $newTag = new $this->tagDocumentClass();
                         $newTag->setName($newTagName);
                         $fetchedTags[] = $newTag;

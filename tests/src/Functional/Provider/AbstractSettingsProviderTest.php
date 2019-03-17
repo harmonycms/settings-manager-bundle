@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 
 abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProviderTest
@@ -24,7 +24,7 @@ abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProv
         $this->assertCount(1, $settings);
         $this->assertEquals('tuna', reset($settings)->getName());
 
-        $newSetting = new SettingModel();
+        $newSetting = new Setting();
         $newSetting
             ->setName('whale')
             ->setType(Type::BOOL())
@@ -43,7 +43,7 @@ abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProv
         sort($actual);
         $this->assertEquals($expected, $actual);
 
-        /** @var SettingModel $setting */
+        /** @var Setting $setting */
         $setting = $map['whale'];
         $this->assertEquals('whale', $setting->getName());
         $this->assertTrue($setting->getType()->equals(Type::BOOL()));
@@ -56,11 +56,11 @@ abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProv
         $settings = $this->provider->getSettings(['water']);
         $this->assertCount(0, $settings);
 
-        $newDomain = new DomainModel();
+        $newDomain = new SettingDomain();
         $newDomain->setName('water');
         $newDomain->setEnabled(true);
 
-        $newSetting = new SettingModel();
+        $newSetting = new Setting();
         $newSetting
             ->setName('whale')
             ->setType(Type::BOOL())
@@ -79,7 +79,7 @@ abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProv
         sort($actual);
         $this->assertEquals($expected, $actual);
 
-        /** @var SettingModel $setting */
+        /** @var Setting $setting */
         $setting = $map['whale'];
         $this->assertEquals('whale', $setting->getName());
         $this->assertTrue($setting->getType()->equals(Type::BOOL()));
@@ -90,7 +90,7 @@ abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProv
 
     public function testDelete()
     {
-        $sortCallback = function (SettingModel $a, SettingModel$b) {
+        $sortCallback = function (Setting $a, Setting$b) {
             $v = $a->getName() <=> $b->getName();
             return $v !== 0 ? $v * -1 : $v;
         };
@@ -110,7 +110,7 @@ abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProv
         usort($settings, $sortCallback);
         $this->assertCount(1, $settings);
 
-        /** @var SettingModel $setting */
+        /** @var Setting $setting */
         $setting = array_shift($settings);
         $this->assertEquals('foo', $setting->getName());
     }
@@ -169,7 +169,7 @@ abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProv
     public function testDeleteDomain()
     {
         $domainNames = array_map(
-            function (DomainModel $model) {
+            function (SettingDomain $model) {
                 return $model->getName();
             },
             $this->provider->getDomains()
@@ -188,7 +188,7 @@ abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProv
         $this->assertArrayNotHasKey('default', $this->buildDomainMap(...$this->provider->getDomains()));
     }
 
-    private function buildSettingHashmap(SettingModel ...$models): array
+    private function buildSettingHashmap(Setting ...$models): array
     {
         $map = [];
         foreach ($models as $model) {
@@ -200,7 +200,7 @@ abstract class AbstractSettingsProviderTest extends AbstractReadableSettingsProv
         return $map;
     }
 
-    private function buildDomainMap(DomainModel ...$models): array
+    private function buildDomainMap(SettingDomain ...$models): array
     {
         $map = [];
         foreach ($models as $model) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Form\Type;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,7 +26,7 @@ class DomainType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => DomainModel::class,
+                'data_class' => SettingDomain::class,
                 'compound' => true,
                 'label' => false,
             ]);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectToPopulateTrait;
@@ -33,13 +33,12 @@ class DomainModelNormalizer implements NormalizerInterface, DenormalizerInterfac
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return is_a($type, DomainModel::class, true);
+        return is_a($type, SettingDomain::class, true);
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @param DomainModel $object
+     * @param SettingDomain $object
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -56,6 +55,6 @@ class DomainModelNormalizer implements NormalizerInterface, DenormalizerInterfac
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof DomainModel;
+        return $data instanceof SettingDomain;
     }
 }

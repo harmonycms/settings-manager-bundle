@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Harmony\Bundle\SettingsManagerBundle\Form;
 
 use Harmony\Bundle\SettingsManagerBundle\Form\Type\DomainType;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -43,7 +43,7 @@ class SettingFormType extends AbstractType
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var SettingModel $model */
+            /** @var Setting $model */
             if (($model = $event->getData()) === null) {
                 return;
             }
@@ -81,7 +81,7 @@ class SettingFormType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => SettingModel::class,
+                'data_class' => Setting::class,
                 'method' => 'POST',
             ]);
     }

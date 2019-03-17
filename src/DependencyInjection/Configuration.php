@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\DependencyInjection;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -127,7 +127,7 @@ class Configuration implements ConfigurationInterface
                         })
                     ->end()
                     ->children()
-                        ->scalarNode('name')->defaultValue(DomainModel::DEFAULT_NAME)->end()
+                        ->scalarNode('name')->defaultValue(SettingDomain::DEFAULT_NAME)->end()
                         ->booleanNode('enabled')->defaultTrue()->end()
                         ->booleanNode('read_only')->defaultTrue()->end()
                     ->end()

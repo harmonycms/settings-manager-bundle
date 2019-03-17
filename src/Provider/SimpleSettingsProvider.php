@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Provider\Traits\WritableProviderTrait;
 
 class SimpleSettingsProvider implements SettingsProviderInterface
@@ -15,7 +15,7 @@ class SimpleSettingsProvider implements SettingsProviderInterface
     protected $settings;
 
     /**
-     * @param SettingModel[] $settings
+     * @param Setting[] $settings
      */
     public function __construct(array $settings = [])
     {
@@ -65,7 +65,7 @@ class SimpleSettingsProvider implements SettingsProviderInterface
         return array_values($out);
     }
 
-    public function save(SettingModel $settingModel): bool
+    public function save(Setting $settingModel): bool
     {
         $updated = false;
 
@@ -86,7 +86,7 @@ class SimpleSettingsProvider implements SettingsProviderInterface
         return true;
     }
 
-    public function delete(SettingModel $settingModel): bool
+    public function delete(Setting $settingModel): bool
     {
         foreach ($this->settings as $key => $setting) {
             if ($setting->getName() === $settingModel->getName()
@@ -101,7 +101,7 @@ class SimpleSettingsProvider implements SettingsProviderInterface
         return false;
     }
 
-    public function updateDomain(DomainModel $domainModel): bool
+    public function updateDomain(SettingDomain $domainModel): bool
     {
         $updated = false;
 

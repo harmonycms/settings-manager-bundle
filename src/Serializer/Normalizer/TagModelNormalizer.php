@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\TagModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingTag;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectToPopulateTrait;
@@ -32,13 +32,12 @@ class TagModelNormalizer implements NormalizerInterface, DenormalizerInterface, 
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return is_a($type, TagModel::class, true);
+        return is_a($type, SettingTag::class, true);
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @param TagModel $object
+     * @param SettingTag $object
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -52,6 +51,6 @@ class TagModelNormalizer implements NormalizerInterface, DenormalizerInterface, 
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof TagModel;
+        return $data instanceof SettingTag;
     }
 }

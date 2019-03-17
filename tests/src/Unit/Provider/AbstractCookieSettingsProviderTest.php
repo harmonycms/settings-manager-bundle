@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Symfony\Component\Serializer\SerializerInterface;
 
 abstract class AbstractCookieSettingsProviderTest extends TestCase
@@ -55,7 +55,7 @@ abstract class AbstractCookieSettingsProviderTest extends TestCase
         $eventMock->expects($this->exactly(2))->method('getResponse')->willReturn($response = new Response());
         $eventMock->expects($this->never())->method('getRequest');
 
-        $settingStub = $this->createMock(SettingModel::class);
+        $settingStub = $this->createMock(Setting::class);
 
         $this
             ->serializer
@@ -90,11 +90,11 @@ abstract class AbstractCookieSettingsProviderTest extends TestCase
 
         $request = new Request([], [], [], [$cookie->getName() => $cookie->getValue()]);
 
-        $domainStub = $this->createMock(DomainModel::class);
+        $domainStub = $this->createMock(SettingDomain::class);
         $domainStub->method('getName')->willReturn('woo');
         $domainStub->method('isEnabled')->willReturn(true);
 
-        $settingStub = $this->createMock(SettingModel::class);
+        $settingStub = $this->createMock(Setting::class);
         $settingStub->method('getDomain')->willReturn($domainStub);
 
         $eventMock->expects($this->once())->method('isMasterRequest')->willReturn(true);
@@ -103,7 +103,7 @@ abstract class AbstractCookieSettingsProviderTest extends TestCase
             ->serializer
             ->expects($this->once())
             ->method('deserialize')
-            ->with('serialized_settings', SettingModel::class . '[]', 'json')
+            ->with('serialized_settings', Setting::class . '[]', 'json')
             ->willReturn([$settingStub]);
 
         $this->provider->onKernelRequest($eventMock);

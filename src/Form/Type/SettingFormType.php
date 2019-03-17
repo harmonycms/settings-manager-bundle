@@ -2,7 +2,7 @@
 
 namespace Harmony\Bundle\SettingsManagerBundle\Form\Type;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +31,7 @@ class SettingFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var SettingModel $model */
+            /** @var Setting $model */
             if (null === $model = $event->getData()) {
                 return;
             }
@@ -72,6 +72,6 @@ class SettingFormType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => SettingModel::class]);
+        $resolver->setDefaults(['data_class' => Setting::class]);
     }
 }

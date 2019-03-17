@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class LazyReadableSimpleSettingsProvider extends ReadableSimpleSettingsProvider
@@ -51,7 +51,7 @@ class LazyReadableSimpleSettingsProvider extends ReadableSimpleSettingsProvider
                     );
                     $this->modelSettingsByDomain[$domainName] = array_replace(
                         $this->modelSettingsByDomain[$domainName],
-                        $this->serializer->denormalize($missingSettings, SettingModel::class . '[]')
+                        $this->serializer->denormalize($missingSettings, Setting::class . '[]')
                     );
                 }
 
@@ -60,7 +60,7 @@ class LazyReadableSimpleSettingsProvider extends ReadableSimpleSettingsProvider
                 // has normalized models
                 $this->modelSettingsByDomain[$domainName] = $this
                     ->serializer
-                    ->denormalize($this->normSettingsByDomain[$domainName], SettingModel::class . '[]');
+                    ->denormalize($this->normSettingsByDomain[$domainName], Setting::class . '[]');
                 $out = array_merge($out, array_values($this->modelSettingsByDomain[$domainName]));
             }
         }
@@ -81,7 +81,7 @@ class LazyReadableSimpleSettingsProvider extends ReadableSimpleSettingsProvider
                     // normalized data exists, make a model
                     $out[]
                         = $this->modelSettingsByDomain[$domainName][$settingName]
-                        = $this->serializer->denormalize($this->normSettingsByDomain[$domainName][$settingName], SettingModel::class);
+                        = $this->serializer->denormalize($this->normSettingsByDomain[$domainName][$settingName], Setting::class);
                 }
             }
         }
@@ -93,8 +93,8 @@ class LazyReadableSimpleSettingsProvider extends ReadableSimpleSettingsProvider
     {
         if (count($this->normDomains) > 0 && count($this->modelDomains) === 0) {
             foreach ($this->normDomains as $normDomain) {
-                /** @var DomainModel $model */
-                $model = $this->serializer->denormalize($normDomain, DomainModel::class);
+                /** @var SettingDomain $model */
+                $model = $this->serializer->denormalize($normDomain, SettingDomain::class);
                 $this->modelDomains[] = $model;
                 $model->isEnabled() && ($this->modelDomainsEnabled[] = $model);
             }

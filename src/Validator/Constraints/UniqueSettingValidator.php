@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Validator\Constraints;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -20,7 +20,7 @@ class UniqueSettingValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
     {
-        if (!$value instanceof SettingModel || !$constraint instanceof UniqueSetting) {
+        if (!$value instanceof Setting || !$constraint instanceof UniqueSetting) {
             return;
         }
 

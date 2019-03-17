@@ -6,7 +6,7 @@ namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 use Harmony\Bundle\SettingsManagerBundle\Provider\DecoratingRedisSettingsProvider;
 use Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider;
 use App\Entity\Setting;
-use App\Entity\Tag;
+use App\Entity\SettingTag;
 use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 
 class RedisDoctrineOrmSettingsProviderTest extends DecoratingPredisSettingsProviderTest
@@ -29,7 +29,7 @@ class RedisDoctrineOrmSettingsProviderTest extends DecoratingPredisSettingsProvi
             new DoctrineOrmSettingsProvider(
                 $container->get('doctrine.orm.default_entity_manager'),
                 Setting::class,
-                Tag::class
+                SettingTag::class
             ),
             $this->redis,
             $container->get('test.settings_manager.serializer')

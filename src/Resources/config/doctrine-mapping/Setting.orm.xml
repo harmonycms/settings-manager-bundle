@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\SettingModel">
+    <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\Setting">
         <field name="name" column="name" length="128"/>
         <field name="description" column="description" length="255" nullable="true"/>
         <field name="type" column="type" type="setting_type_enum"/>

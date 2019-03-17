@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Harmony\Bundle\SettingsManagerBundle\Model\TagModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingTag;
 
 /**
  * Class Setting
@@ -12,7 +12,7 @@ use Harmony\Bundle\SettingsManagerBundle\Model\TagModel;
  * @ORM\Entity()
  * @ORM\Table(name="settings_test_tag")
  */
-class Tag extends TagModel
+class SettingTag extends SettingTag
 {
     /**
      * @var int

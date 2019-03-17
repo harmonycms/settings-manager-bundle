@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Harmony\Bundle\SettingsManagerBundle\Tests\Functional\Provider;
 
 use App\Entity\Setting;
-use App\Entity\Tag;
+use App\Entity\SettingTag;
 use Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider;
 use Harmony\Bundle\SettingsManagerBundle\Provider\SettingsProviderInterface;
 
@@ -22,7 +22,7 @@ class DoctrineOrmSettingsProviderTest extends AbstractSettingsProviderTest
         return new DoctrineOrmSettingsProvider(
             $this->getContainer()->get('doctrine.orm.default_entity_manager'),
             Setting::class,
-            Tag::class
+            SettingTag::class
         );
     }
 }

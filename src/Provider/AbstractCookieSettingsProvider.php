@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 
-use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Provider\Traits\WritableProviderTrait;
 use ParagonIE\Paseto\Builder;
 use ParagonIE\Paseto\Exception\PasetoException;
@@ -94,7 +94,7 @@ abstract class AbstractCookieSettingsProvider extends SimpleSettingsProvider imp
         try {
             $this->settings = $this
                 ->serializer
-                ->deserialize($token->get('dt'), SettingModel::class . '[]', 'json');
+                ->deserialize($token->get('dt'), Setting::class . '[]', 'json');
         } catch (PasetoException $e) {
             $this->logger && $this->logger->warning(sprintf('%s: '. strtolower($e), (new \ReflectionObject($this))->getShortName()) , [
                 'sRawToken' => $rawToken,
@@ -144,7 +144,7 @@ abstract class AbstractCookieSettingsProvider extends SimpleSettingsProvider imp
             ->setCookie(new Cookie($this->cookieName, (string) $token, time() + $this->ttl, $this->cookiePath, $this->cookieDomain));
     }
 
-    public function save(SettingModel $settingModel): bool
+    public function save(Setting $settingModel): bool
     {
         $output = parent::save($settingModel);
         $output && $this->changed = true;
@@ -152,7 +152,7 @@ abstract class AbstractCookieSettingsProvider extends SimpleSettingsProvider imp
         return $output;
     }
 
-    public function updateDomain(DomainModel $domainModel): bool
+    public function updateDomain(SettingDomain $domainModel): bool
     {
         $output = parent::updateDomain($domainModel);
         $output && $this->changed = true;
