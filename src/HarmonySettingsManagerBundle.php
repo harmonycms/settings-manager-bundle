@@ -6,6 +6,7 @@ namespace Harmony\Bundle\SettingsManagerBundle;
 
 use Acelaya\Doctrine\Type\PhpEnumType;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
 use Doctrine\DBAL\Types\Type as DoctrineType;
 use Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler\ProviderFactoryPass;
 use Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler\ProviderPass;
@@ -49,10 +50,15 @@ class HarmonySettingsManagerBundle extends Bundle
         $container->addCompilerPass(new ProviderPass());
         $container->addCompilerPass(new SettingsAwarePass());
 
+        // get all bundles
+        $bundles = $container->getParameter('kernel.bundles');
+
         $mappings = [
             realpath(__DIR__ . '/Resources/config/doctrine-mapping') => 'Harmony\Bundle\SettingsManagerBundle\Model'
         ];
-        if (class_exists(DoctrineOrmMappingsPass::class) && $container->has('doctrine.orm.default_entity_manager')) {
+        if (\class_exists(DoctrineMongoDBMappingsPass::class) && isset($bundles['DoctrineMongoDBBundle'])) {
+            $container->addCompilerPass(DoctrineMongoDBMappingsPass::createXmlMappingDriver($mappings, []));
+        } elseif (\class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
             $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings));
         }
     }

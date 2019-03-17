@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                        http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\SettingModel">
+        <field name="name" fieldName="name"/>
+        <field name="description" fieldName="description" nullable="true"/>
+        <field name="type" fieldName="type" type="setting_type_enum"/>
+        <field name="type_options" fieldName="typeOptions" type="json" nullable="true"/>
+        <field name="data" fieldName="data" type="json"/>
+        <field name="choices" fieldName="choices" type="json" nullable="true"/>
+        <embed-one field="domain" target-document="Harmony\Bundle\SettingsManagerBundle\Model\DomainModel"/>
+    </mapped-superclass>
+
+</doctrine-mongo-mapping>

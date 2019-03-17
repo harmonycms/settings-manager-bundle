@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                        http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\DomainModel">
+        <field name="name" fieldName="name"/>
+        <field name="priority" fieldName="priority" type="integer"/>
+        <field name="enabled" fieldName="enabled" type="boolean"/>
+        <field name="read_only" fieldName="readOnly" type="boolean"/>
+    </mapped-superclass>
+
+</doctrine-mongo-mapping>
