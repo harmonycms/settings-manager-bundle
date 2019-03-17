@@ -8,8 +8,14 @@ use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
 use Harmony\Bundle\SettingsManagerBundle\Model\DomainModel;
 use Harmony\Bundle\SettingsManagerBundle\Model\SettingModel;
 
+/**
+ * Interface SettingsProviderInterface
+ *
+ * @package Harmony\Bundle\SettingsManagerBundle\Provider
+ */
 interface SettingsProviderInterface
 {
+
     /**
      *  Default provider name
      */
@@ -35,7 +41,7 @@ interface SettingsProviderInterface
     /**
      * Returns setting by name.
      *
-     * @param string[] $domainNames Domains names to check
+     * @param string[] $domainNames  Domains names to check
      * @param string[] $settingNames Settings to check in those domains
      *
      * @return SettingModel[]
@@ -50,7 +56,6 @@ interface SettingsProviderInterface
      * @param SettingModel $settingModel
      *
      * @return bool Status of save process
-     *
      * @throws ReadOnlyProviderException When provider is read only
      */
     public function save(SettingModel $settingModel): bool;
