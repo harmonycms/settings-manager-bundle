@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Harmony\Bundle\SettingsManagerBundle\DependencyInjection;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
 use Harmony\Bundle\SettingsManagerBundle\DataCollector\SettingsCollector;
 use Harmony\Bundle\SettingsManagerBundle\Enqueue\Consumption\WarmupSettingsManagerExtension;
+use Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOdmSettingsProvider;
 use Harmony\Bundle\SettingsManagerBundle\Provider\DoctrineOrmSettingsProvider;
 use Harmony\Bundle\SettingsManagerBundle\Provider\Factory\SimpleSettingsProviderFactory;
 use Harmony\Bundle\SettingsManagerBundle\Provider\LazyReadableSimpleSettingsProvider;
@@ -71,7 +73,9 @@ class HarmonySettingsManagerExtension extends Extension
         $this->loadSettingsRouter($container);
         $this->loadSimpleProvider($config, $container);
 
-        if (\class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
+        if (\class_exists(DoctrineMongoDBMappingsPass::class) && isset($bundles['DoctrineMongoDBBundle'])) {
+            $this->loadMongoDbProvider($config, $container);
+        } elseif (\class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
             $this->loadOrmProvider($config, $container);
         }
 
@@ -234,5 +238,17 @@ class HarmonySettingsManagerExtension extends Extension
             ->setArgument('$entityManager', new Reference('doctrine.orm.default_entity_manager'))
             ->setArgument('$settingsEntityClass', $config['settings_classes']['setting_entity'])
             ->addTag('settings_manager.provider', ['provider' => 'orm', 'priority' => 20]);
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
+    private function loadMongoDbProvider(array $config, ContainerBuilder $container)
+    {
+        $container->register(DoctrineOdmSettingsProvider::class, DoctrineOdmSettingsProvider::class)
+            ->setArgument('$registry', new Reference('doctrine_mongodb'))
+            ->setArgument('$settingsDocumentClass', $config['settings_classes']['setting_document'])
+            ->addTag('settings_manager.provider', ['provider' => 'odm', 'priority' => 20]);
     }
 }
