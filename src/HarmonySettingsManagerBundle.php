@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Harmony\Bundle\SettingsManagerBundle;
 
 use Acelaya\Doctrine\Type\PhpEnumType;
+use Acelaya\Doctrine\Type\PhpOdmEnumType;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
 use Doctrine\DBAL\Types\Type as DoctrineType;
+use Doctrine\ODM\MongoDB\Types\Type as MongoDbType;
 use Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler\ProviderFactoryPass;
 use Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler\ProviderPass;
 use Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler\SettingsAwarePass;
@@ -26,13 +28,19 @@ class HarmonySettingsManagerBundle extends Bundle
 
     /**
      * Boots the Bundle.
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
      */
     public function boot()
     {
         parent::boot();
 
-        if (class_exists(PhpEnumType::class) && !DoctrineType::hasType('setting_type_enum')) {
+        if (\class_exists(PhpEnumType::class) && !DoctrineType::hasType('setting_type_enum')) {
             PhpEnumType::registerEnumType('setting_type_enum', Type::class);
+        }
+        if (\class_exists(PhpOdmEnumType::class) && !MongoDbType::hasType('setting_type_enum')) {
+            PhpOdmEnumType::registerEnumType('setting_type_enum', Type::class);
         }
     }
 
