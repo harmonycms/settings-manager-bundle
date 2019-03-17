@@ -5,7 +5,7 @@
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
     <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\TagModel">
-        <field name="name" fieldName="name" unique="true"/>
+        <field name="name" fieldName="name" type="string" unique="true"/>
     </mapped-superclass>
 
 </doctrine-mongo-mapping>

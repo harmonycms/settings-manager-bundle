@@ -5,7 +5,7 @@
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
     <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\DomainModel">
-        <field name="name" fieldName="name"/>
+        <field name="name" fieldName="name" type="string"/>
         <field name="priority" fieldName="priority" type="integer"/>
         <field name="enabled" fieldName="enabled" type="boolean"/>
         <field name="read_only" fieldName="readOnly" type="boolean"/>
