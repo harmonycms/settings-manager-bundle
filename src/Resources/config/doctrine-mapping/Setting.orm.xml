@@ -11,7 +11,7 @@
         <field name="typeOptions" column="type_options" type="json" nullable="true"/>
         <field name="data" column="data" type="json"/>
         <field name="choices" column="choices" type="json" nullable="true"/>
-        <embedded name="domain" class="Harmony\Bundle\SettingsManagerBundle\Model\DomainModel"/>
+        <embedded name="domain" class="Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain"/>
     </mapped-superclass>
 
 </doctrine-mapping>
