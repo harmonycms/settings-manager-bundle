@@ -237,6 +237,7 @@ class HarmonySettingsManagerExtension extends Extension
         $container->register(DoctrineOrmSettingsProvider::class, DoctrineOrmSettingsProvider::class)
             ->setArgument('$entityManager', new Reference('doctrine.orm.default_entity_manager'))
             ->setArgument('$settingsEntityClass', $config['settings_classes']['setting_entity'])
+            ->setArgument('$tagEntityClass', $config['settings_classes']['setting_tag_entity'])
             ->addTag('settings_manager.provider', ['provider' => 'orm', 'priority' => 20]);
     }
 
@@ -249,6 +250,7 @@ class HarmonySettingsManagerExtension extends Extension
         $container->register(DoctrineOdmSettingsProvider::class, DoctrineOdmSettingsProvider::class)
             ->setArgument('$registry', new Reference('doctrine_mongodb'))
             ->setArgument('$settingsDocumentClass', $config['settings_classes']['setting_document'])
+            ->setArgument('$tagDocumentClass', $config['settings_classes']['setting_tag_document'])
             ->addTag('settings_manager.provider', ['provider' => 'odm', 'priority' => 20]);
     }
 }
