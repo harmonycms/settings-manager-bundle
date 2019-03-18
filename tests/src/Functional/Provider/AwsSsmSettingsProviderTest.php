@@ -11,9 +11,9 @@ use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
 use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Harmony\Bundle\SettingsManagerBundle\Provider\AwsSsmSettingsProvider;
-use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\DomainModelNormalizer;
-use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\SettingModelNormalizer;
-use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\TagModelNormalizer;
+use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\SettingDomainNormalizer;
+use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\SettingNormalizer;
+use Harmony\Bundle\SettingsManagerBundle\Serializer\Normalizer\SettingTagNormalizer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -38,9 +38,9 @@ class AwsSsmSettingsProviderTest extends TestCase
         $this->serializer = new Serializer(
             [
                 new ArrayDenormalizer(),
-                new SettingModelNormalizer(),
-                new DomainModelNormalizer(),
-                new TagModelNormalizer(),
+                new SettingNormalizer(),
+                new SettingDomainNormalizer(),
+                new SettingTagNormalizer(),
             ],
             [
                 new JsonEncoder(),
