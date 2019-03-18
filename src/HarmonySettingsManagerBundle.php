@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Harmony\Bundle\SettingsManagerBundle;
 
-use Acelaya\Doctrine\Type\PhpEnumType;
-use Acelaya\Doctrine\Type\PhpOdmEnumType;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
 use Doctrine\DBAL\Types\Type as DoctrineType;
 use Doctrine\ODM\MongoDB\Types\Type as MongoDbType;
+use Harmony\Bundle\CoreBundle\Doctrine\Type\PhpEnumType;
+use Harmony\Bundle\CoreBundle\Doctrine\Type\PhpOdmEnumType;
 use Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler\ProviderFactoryPass;
 use Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler\ProviderPass;
 use Harmony\Bundle\SettingsManagerBundle\DependencyInjection\Compiler\SettingsAwarePass;

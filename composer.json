@@ -42,7 +42,6 @@
         "symfony/yaml": "^3.4|^4.0"
     },
     "require-dev": {
-        "acelaya/doctrine-enum-type": "^2.0",
         "aws/aws-sdk-php": "^3.48",
         "doctrine/doctrine-bundle": "^1.8",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
