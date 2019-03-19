@@ -27,6 +27,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
+use function class_exists;
 
 /**
  * Class HarmonySettingsManagerExtension
@@ -73,9 +74,9 @@ class HarmonySettingsManagerExtension extends Extension
         $this->loadSettingsRouter($container);
         $this->loadSimpleProvider($config, $container);
 
-        if (\class_exists(DoctrineMongoDBMappingsPass::class) && isset($bundles['DoctrineMongoDBBundle'])) {
+        if (class_exists(DoctrineMongoDBMappingsPass::class) && isset($bundles['DoctrineMongoDBBundle'])) {
             $this->loadMongoDbProvider($config, $container);
-        } elseif (\class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
+        } elseif (class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
             $this->loadOrmProvider($config, $container);
         }
 
