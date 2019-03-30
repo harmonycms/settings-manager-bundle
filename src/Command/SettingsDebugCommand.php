@@ -185,7 +185,7 @@ EOF
             $settingModel->getDescription(),
             $settingModel->getDomain()->getName(),
             $settingModel->getType()->getValue(),
-            $settingModel->getData(),
+            is_array($settingModel->getData()) ? implode(',', $settingModel->getData()) : $settingModel->getData(),
             $settingModel->getProviderName() ?? 'config',
             $tagInformation
         ];
