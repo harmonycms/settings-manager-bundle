@@ -27,6 +27,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
+use function class_exists;
 
 /**
  * Class HarmonySettingsManagerExtension
@@ -61,10 +62,6 @@ class HarmonySettingsManagerExtension extends Extension
             $loader->load('twig.yaml');
         }
 
-        if ($config['profiler']['enabled']) {
-            $this->loadDataCollector($container);
-        }
-
         if ($config['logger']['enabled']) {
             $container->setAlias('settings_manager.logger', $config['logger']['service_id']);
         }
@@ -73,9 +70,9 @@ class HarmonySettingsManagerExtension extends Extension
         $this->loadSettingsRouter($container);
         $this->loadSimpleProvider($config, $container);
 
-        if (\class_exists(DoctrineMongoDBMappingsPass::class) && isset($bundles['DoctrineMongoDBBundle'])) {
+        if (class_exists(DoctrineMongoDBMappingsPass::class) && isset($bundles['DoctrineMongoDBBundle'])) {
             $this->loadMongoDbProvider($config, $container);
-        } elseif (\class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
+        } elseif (class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
             $this->loadOrmProvider($config, $container);
         }
 
@@ -191,20 +188,6 @@ class HarmonySettingsManagerExtension extends Extension
         }
 
         return $settings;
-    }
-
-    /**
-     * @param ContainerBuilder $container
-     */
-    private function loadDataCollector(ContainerBuilder $container): void
-    {
-        $container->register(SettingsCollector::class, SettingsCollector::class)
-            ->setArgument('$settingsStore', new Reference(SettingsStore::class))
-            ->setPublic(false)
-            ->addTag('data_collector', [
-                'id'       => 'settings_manager.settings_collector',
-                'template' => '@HarmonySettingsManager/profiler/profiler.html.twig',
-            ]);
     }
 
     /**
