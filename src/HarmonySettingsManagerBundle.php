@@ -17,6 +17,7 @@ use Harmony\Bundle\SettingsManagerBundle\Model\Type;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use function class_exists;
 
 /**
  * Class HarmonySettingsManagerBundle
@@ -36,10 +37,10 @@ class HarmonySettingsManagerBundle extends Bundle
     {
         parent::boot();
 
-        if (\class_exists(PhpEnumType::class) && !DoctrineType::hasType('setting_type_enum')) {
+        if (class_exists(DoctrineType::class) && !DoctrineType::hasType('setting_type_enum')) {
             PhpEnumType::registerEnumType('setting_type_enum', Type::class);
         }
-        if (\class_exists(PhpOdmEnumType::class) && !MongoDbType::hasType('setting_type_enum')) {
+        if (class_exists(MongoDbType::class) && !MongoDbType::hasType('setting_type_enum')) {
             PhpOdmEnumType::registerEnumType('setting_type_enum', Type::class);
         }
     }
