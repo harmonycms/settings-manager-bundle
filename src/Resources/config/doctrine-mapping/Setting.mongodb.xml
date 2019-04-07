@@ -5,12 +5,12 @@
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
     <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\Setting">
-        <field name="name" fieldName="name" type="string"/>
-        <field name="description" fieldName="description" type="string" nullable="true"/>
-        <field name="type" fieldName="type" type="setting_type_enum"/>
-        <field name="type_options" fieldName="typeOptions" type="hash" nullable="true"/>
-        <field name="data" fieldName="data" type="hash"/>
-        <field name="choices" fieldName="choices" type="hash" nullable="true"/>
+        <field name="name" type="string"/>
+        <field name="description" type="string" nullable="true"/>
+        <field name="type" type="setting_type_enum"/>
+        <field name="typeOptions" type="hash" nullable="true"/>
+        <field name="data" type="hash"/>
+        <field name="choices" type="hash" nullable="true"/>
         <embed-one field="domain" target-document="Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain"/>
     </mapped-superclass>
 
