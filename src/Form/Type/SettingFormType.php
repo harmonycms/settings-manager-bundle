@@ -9,6 +9,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function array_combine;
+use function array_merge;
+use function array_values;
 
 /**
  * Class SettingFormType
@@ -23,10 +26,10 @@ class SettingFormType extends AbstractType
      * This method is called for each type in the hierarchy starting from the
      * top most type. Type extensions can further modify the form.
      *
-     * @see FormTypeExtensionInterface::buildForm()
-     *
      * @param FormBuilderInterface $builder The form builder
      * @param array                $options The options
+     *
+     * @see FormTypeExtensionInterface::buildForm()
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -37,9 +40,8 @@ class SettingFormType extends AbstractType
             }
 
             $options = [
-                'translation_domain' => 'HarmonySettingsManager',
-                'label'              => false,
-                'help'               => $model->getDescription()
+                'label' => false,
+                'help'  => $model->getDescription()
             ];
             if ($model->getType()->equals(Type::BOOL()) || $model->getType()->getValue() === 'bool') {
                 $options += ['required' => false];
