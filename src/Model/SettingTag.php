@@ -23,16 +23,6 @@ abstract class SettingTag implements SettingTagInterface
     protected $name;
 
     /**
-     * Get Id
-     *
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
      * Set Id
      *
      * @param int $id
