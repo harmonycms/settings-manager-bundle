@@ -5,7 +5,6 @@
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
     <mapped-superclass name="Harmony\Bundle\SettingsManagerBundle\Model\SettingTag">
-        <id/>
         <field name="name" type="string" unique="true"/>
     </mapped-superclass>
 
