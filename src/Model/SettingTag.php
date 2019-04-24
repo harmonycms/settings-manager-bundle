@@ -9,7 +9,7 @@ namespace Harmony\Bundle\SettingsManagerBundle\Model;
  *
  * @package Harmony\Bundle\SettingsManagerBundle\Model
  */
-class SettingTag
+class SettingTag implements SettingTagInterface
 {
 
     /**
