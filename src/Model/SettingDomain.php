@@ -9,7 +9,7 @@ namespace Harmony\Bundle\SettingsManagerBundle\Model;
  *
  * @package Harmony\Bundle\SettingsManagerBundle\Model
  */
-class SettingDomain implements SettingDomainInterface
+abstract class SettingDomain implements SettingDomainInterface
 {
 
     public const DEFAULT_NAME = 'default';
