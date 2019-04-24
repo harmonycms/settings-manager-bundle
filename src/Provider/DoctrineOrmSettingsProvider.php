@@ -67,10 +67,8 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      */
     public function getSettings(array $domainNames): array
     {
-        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder();
-        $qb->select('s')
-            ->from($this->settingsEntityClass, 's')
-            ->where($qb->expr()->in('s.domain.name', ':domainNames'))
+        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder('s');
+        $qb->where($qb->expr()->in('s.domain.name', ':domainNames'))
             ->setParameter('domainNames', $domainNames)
             ->setMaxResults(300);
 
@@ -87,11 +85,9 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      */
     public function getSettingsByName(array $domainNames, array $settingNames): array
     {
-        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder();
-        $qb->select('s')
-            ->from($this->settingsEntityClass, 's')
-            ->where($qb->expr()->andX($qb->expr()
-                ->in('s.name', ':settingNames'), $qb->expr()->in('s.domain.name', ':domainNames')))
+        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder('s');
+        $qb->where($qb->expr()->andX($qb->expr()
+            ->in('s.name', ':settingNames'), $qb->expr()->in('s.domain.name', ':domainNames')))
             ->setParameter('domainNames', $domainNames)
             ->setParameter('settingNames', $settingNames)
             ->setMaxResults(300);
@@ -108,12 +104,11 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      */
     public function getDomains(bool $onlyEnabled = false): array
     {
-        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder();
+        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder('s');
         $qb->select('DISTINCT s.domain.name AS name')
             ->addSelect('s.domain.priority AS priority')
             ->addSelect('s.domain.enabled AS enabled')
             ->addSelect('s.domain.readOnly AS readOnly')
-            ->from($this->settingsEntityClass, 's')
             ->setMaxResults(100);
 
         if ($onlyEnabled) {
@@ -124,7 +119,8 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
         }
 
         return array_map(function ($row) {
-            $model = new SettingDomain();
+            $settingDomainClass = $this->registry->getManager()->getClassMetadata(SettingInterface::class)->getName();
+            $model              = new $settingDomainClass();
             $model->setName($row['name']);
             $model->setPriority($row['priority']);
             $model->setEnabled($row['enabled']);
@@ -182,7 +178,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      */
     public function delete(Setting $settingModel): bool
     {
-        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder();
+        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder('s');
         $qb->delete($this->settingsEntityClass, 's')->where($qb->expr()->andX($qb->expr()->eq('s.name', ':sname'),
             $qb->expr()->eq('s.domain.name', ':dname')))->setParameters([
             'sname' => $settingModel->getName(),
@@ -208,7 +204,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      */
     public function updateDomain(SettingDomain $domainModel): bool
     {
-        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder();
+        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder('s');
         $qb->update($this->settingsEntityClass, 's')
             ->set('s.domain.enabled', ':enabled')
             ->set('s.domain.priority', ':priority')
@@ -236,7 +232,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      */
     public function deleteDomain(string $domainName): bool
     {
-        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder();
+        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder('s');
         $qb->delete($this->settingsEntityClass, 's')
             ->where($qb->expr()->eq('s.domain.name', ':dname'))
             ->setParameter('dname', $domainName);
