@@ -5,11 +5,17 @@ namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\Mapping\MappingException;
 use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
-use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
 use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingInterface;
 use Harmony\Bundle\SettingsManagerBundle\Model\SettingTag;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingTagInterface;
 use Harmony\Bundle\SettingsManagerBundle\Provider\Traits\WritableProviderTrait;
+use function array_diff;
+use function array_merge;
+use function count;
 
 /**
  * Class DoctrineOdmSettingsProvider
@@ -25,36 +31,28 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
     protected $registry;
 
     /** @var string $settingsDocumentClass */
-    protected $settingsDocumentClass;
+    protected $settingsDocumentClass = '';
 
     /** @var string $tagDocumentClass */
-    protected $tagDocumentClass;
+    protected $tagDocumentClass = '';
 
     /**
      * DoctrineOdmSettingsProvider constructor.
      *
      * @param ManagerRegistry $registry
-     * @param string          $settingsDocumentClass
-     * @param string|null     $tagDocumentClass
      */
-    public function __construct(ManagerRegistry $registry, string $settingsDocumentClass,
-                                string $tagDocumentClass = null)
+    public function __construct(ManagerRegistry $registry)
     {
         $this->registry = $registry;
-
-        if (!is_subclass_of($settingsDocumentClass, Setting::class)) {
-            throw new \UnexpectedValueException($settingsDocumentClass . ' is not part of the model ' .
-                Setting::class);
+        try {
+            $this->settingsDocumentClass = $registry->getManager()
+                ->getClassMetadata(SettingInterface::class)
+                ->getName();
+            $this->tagDocumentClass      = $registry->getManager()
+                ->getClassMetadata(SettingTagInterface::class)
+                ->getName();
         }
-
-        $this->settingsDocumentClass = $settingsDocumentClass;
-
-        if ($tagDocumentClass !== null) {
-            if (!is_subclass_of($tagDocumentClass, SettingTag::class)) {
-                throw new \UnexpectedValueException($tagDocumentClass . ' is not part of the model ' . SettingTag::class);
-            }
-
-            $this->tagDocumentClass = $tagDocumentClass;
+        catch (MappingException $mappingException) {
         }
     }
 
