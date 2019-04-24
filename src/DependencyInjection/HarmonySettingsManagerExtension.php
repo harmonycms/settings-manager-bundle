@@ -27,7 +27,9 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
+use function array_merge;
 use function class_exists;
+use function file_exists;
 
 /**
  * Class HarmonySettingsManagerExtension
@@ -71,9 +73,9 @@ class HarmonySettingsManagerExtension extends Extension
         $this->loadSimpleProvider($config, $container);
 
         if (class_exists(DoctrineMongoDBMappingsPass::class) && isset($bundles['DoctrineMongoDBBundle'])) {
-            $this->loadMongoDbProvider($config, $container);
+            $this->loadMongoDbProvider($container);
         } elseif (class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
-            $this->loadOrmProvider($config, $container);
+            $this->loadOrmProvider($container);
         }
 
         $this->loadListeners($config['listeners'], $container);
@@ -212,28 +214,22 @@ class HarmonySettingsManagerExtension extends Extension
     }
 
     /**
-     * @param array            $config
      * @param ContainerBuilder $container
      */
-    private function loadOrmProvider(array $config, ContainerBuilder $container): void
+    private function loadOrmProvider(ContainerBuilder $container): void
     {
         $container->register(DoctrineOrmSettingsProvider::class, DoctrineOrmSettingsProvider::class)
-            ->setArgument('$entityManager', new Reference('doctrine.orm.default_entity_manager'))
-            ->setArgument('$settingsEntityClass', $config['settings_classes']['setting_entity'])
-            ->setArgument('$tagEntityClass', $config['settings_classes']['setting_tag_entity'])
+            ->setArgument('$registry', new Reference('doctrine'))
             ->addTag('settings_manager.provider', ['provider' => 'orm', 'priority' => 20]);
     }
 
     /**
-     * @param array            $config
      * @param ContainerBuilder $container
      */
-    private function loadMongoDbProvider(array $config, ContainerBuilder $container)
+    private function loadMongoDbProvider(ContainerBuilder $container)
     {
         $container->register(DoctrineOdmSettingsProvider::class, DoctrineOdmSettingsProvider::class)
             ->setArgument('$registry', new Reference('doctrine_mongodb'))
-            ->setArgument('$settingsDocumentClass', $config['settings_classes']['setting_document'])
-            ->setArgument('$tagDocumentClass', $config['settings_classes']['setting_tag_document'])
             ->addTag('settings_manager.provider', ['provider' => 'odm', 'priority' => 20]);
     }
 }
