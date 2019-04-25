@@ -9,7 +9,7 @@ namespace Harmony\Bundle\SettingsManagerBundle\Model;
  *
  * @package Harmony\Bundle\SettingsManagerBundle\Model
  */
-class SettingTag
+class SettingTag implements SettingTagInterface
 {
 
     /**
@@ -21,16 +21,6 @@ class SettingTag
      * @var string $name
      */
     protected $name;
-
-    /**
-     * Get Id
-     *
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     /**
      * Set Id
