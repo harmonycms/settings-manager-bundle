@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Collection;
  *
  * @package Harmony\Bundle\SettingsManagerBundle\Model
  */
-abstract class Setting implements SettingInterface
+class Setting implements SettingInterface
 {
 
     /** @var string $name */
