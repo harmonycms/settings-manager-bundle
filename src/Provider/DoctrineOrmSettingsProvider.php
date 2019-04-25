@@ -10,6 +10,7 @@ use Doctrine\Common\Persistence\Mapping\MappingException;
 use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
 use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
+use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomainInterface;
 use Harmony\Bundle\SettingsManagerBundle\Model\SettingInterface;
 use Harmony\Bundle\SettingsManagerBundle\Model\SettingTag;
 use Harmony\Bundle\SettingsManagerBundle\Model\SettingTagInterface;
@@ -119,7 +120,9 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
         }
 
         return array_map(function ($row) {
-            $settingDomainClass = $this->registry->getManager()->getClassMetadata(SettingInterface::class)->getName();
+            $settingDomainClass = $this->registry->getManager()
+                ->getClassMetadata(SettingDomainInterface::class)
+                ->getName();
             $model              = new $settingDomainClass();
             $model->setName($row['name']);
             $model->setPriority($row['priority']);
