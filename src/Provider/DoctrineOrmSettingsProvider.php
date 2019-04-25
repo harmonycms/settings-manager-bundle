@@ -46,17 +46,9 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      */
     public function __construct(ManagerRegistry $registry)
     {
-        $this->registry = $registry;
-        try {
-            $this->settingsEntityClass = $registry->getManager()
-                ->getClassMetadata(SettingInterface::class)
-                ->getName();
-            $this->tagEntityClass      = $registry->getManager()
-                ->getClassMetadata(SettingTagInterface::class)
-                ->getName();
-        }
-        catch (MappingException $mappingException) {
-        }
+        $this->registry            = $registry;
+        $this->settingsEntityClass = $registry->getManager()->getClassMetadata(SettingInterface::class)->getName();
+        $this->tagEntityClass      = $registry->getManager()->getClassMetadata(SettingTagInterface::class)->getName();
     }
 
     /**

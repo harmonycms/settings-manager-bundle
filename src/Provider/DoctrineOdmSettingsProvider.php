@@ -43,17 +43,9 @@ class DoctrineOdmSettingsProvider implements SettingsProviderInterface
      */
     public function __construct(ManagerRegistry $registry)
     {
-        $this->registry = $registry;
-        try {
-            $this->settingsDocumentClass = $registry->getManager()
-                ->getClassMetadata(SettingInterface::class)
-                ->getName();
-            $this->tagDocumentClass      = $registry->getManager()
-                ->getClassMetadata(SettingTagInterface::class)
-                ->getName();
-        }
-        catch (MappingException $mappingException) {
-        }
+        $this->registry              = $registry;
+        $this->settingsDocumentClass = $registry->getManager()->getClassMetadata(SettingInterface::class)->getName();
+        $this->tagDocumentClass      = $registry->getManager()->getClassMetadata(SettingTagInterface::class)->getName();
     }
 
     /**

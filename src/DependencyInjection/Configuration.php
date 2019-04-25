@@ -69,6 +69,9 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('settings_files')
                     ->scalarPrototype()->end()
                 ->end()
+                ->arrayNode('dynamic')
+                    ->canBeEnabled()
+                ->end()
                 ->append($this->getSettingsNode())
                 ->append($this->getListenersNode())
             ->end();
