@@ -72,10 +72,10 @@ class HarmonySettingsManagerExtension extends Extension
         $this->loadSettingsRouter($container);
         $this->loadSimpleProvider($config, $container);
 
-        if (true === $config['dynamic'] && class_exists(DoctrineMongoDBMappingsPass::class) &&
+        if ($this->isConfigEnabled($container, $config['dynamic']) && class_exists(DoctrineMongoDBMappingsPass::class) &&
             isset($bundles['DoctrineMongoDBBundle'])) {
             $this->loadMongoDbProvider($container);
-        } elseif (true === $config['dynamic'] && class_exists(DoctrineOrmMappingsPass::class) &&
+        } elseif ($this->isConfigEnabled($container, $config['dynamic']) && class_exists(DoctrineOrmMappingsPass::class) &&
             isset($bundles['DoctrineBundle'])) {
             $this->loadOrmProvider($container);
         }
