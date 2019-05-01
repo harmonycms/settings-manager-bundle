@@ -5,7 +5,6 @@ namespace Harmony\Bundle\SettingsManagerBundle\Provider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\Mapping\MappingException;
 use Harmony\Bundle\SettingsManagerBundle\Exception\ReadOnlyProviderException;
 use Harmony\Bundle\SettingsManagerBundle\Model\Setting;
 use Harmony\Bundle\SettingsManagerBundle\Model\SettingDomain;
