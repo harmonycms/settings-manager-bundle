@@ -136,14 +136,14 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      */
     public function save(Setting $settingModel): bool
     {
-        if ($this->registry->getRepository($this->settingsEntityClass)->contains($settingModel)) {
-            $this->registry->getRepository($this->settingsEntityClass)->persist($settingModel);
-            $this->registry->getRepository($this->settingsEntityClass)->flush();
+        if ($this->registry->getManager()->contains($settingModel)) {
+            $this->registry->getManager()->persist($settingModel);
+            $this->registry->getManager()->flush();
 
             return true;
         }
 
-        $entity = $this->registry->getRepository($this->settingsEntityClass)
+        $entity = $this->registry->getManager()
             ->getRepository($this->settingsEntityClass)
             ->findOneBy([
                 'name'        => $settingModel->getName(),
@@ -156,8 +156,8 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
             $entity = $this->transformModelToEntity($settingModel);
         }
 
-        $this->registry->getRepository($this->settingsEntityClass)->persist($entity);
-        $this->registry->getRepository($this->settingsEntityClass)->flush();
+        $this->registry->getManager()->persist($entity);
+        $this->registry->getManager()->flush();
 
         return true;
     }
@@ -182,7 +182,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
         $success = ((int)$qb->getQuery()->getSingleScalarResult()) > 0;
 
         if ($success) {
-            $this->registry->getRepository()->clear($this->settingsEntityClass);
+            $this->registry->getManager()->clear($this->settingsEntityClass);
         }
 
         return $success;
@@ -198,7 +198,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
      */
     public function updateDomain(SettingDomain $domainModel): bool
     {
-        $qb = $this->registry->getRepository($this->settingsEntityClass)->createQueryBuilder('s');
+        $qb = $this->registry->getManager()->createQueryBuilder('s');
         $qb->update($this->settingsEntityClass, 's')
             ->set('s.domain.enabled', ':enabled')
             ->set('s.domain.priority', ':priority')
@@ -210,7 +210,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
         $success = ((int)$qb->getQuery()->getSingleScalarResult()) > 0;
 
         if ($success) {
-            $this->registry->getRepository($this->settingsEntityClass)->clear($this->settingsEntityClass);
+            $this->registry->getManager()->clear($this->settingsEntityClass);
         }
 
         return $success;
@@ -234,7 +234,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
         $success = ((int)$qb->getQuery()->getSingleScalarResult()) > 0;
 
         if ($success) {
-            $this->registry->getRepository($this->settingsEntityClass)->clear($this->settingsEntityClass);
+            $this->registry->getManager()->clear($this->settingsEntityClass);
         }
 
         return $success;
@@ -271,7 +271,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
             $tagNamesToFetch = [];
 
             foreach ($model->getTags() as $tag) {
-                if ($this->registry->getRepository($this->tagEntityClass)->contains($tag)) {
+                if ($this->registry->getManager()->contains($tag)) {
                     $knownTags[] = $tag;
                 } else {
                     $tagNamesToFetch[] = $tag->getName();
@@ -280,7 +280,7 @@ class DoctrineOrmSettingsProvider implements SettingsProviderInterface
 
             if (count($tagNamesToFetch) > 0) {
                 /** @var SettingTag[] $fetchedTags */
-                $fetchedTags = $this->registry->getRepository($this->tagEntityClass)
+                $fetchedTags = $this->registry->getManager()
                     ->getRepository($this->tagEntityClass)
                     ->findBy(['name' => $tagNamesToFetch]);
 
