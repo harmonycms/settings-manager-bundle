@@ -53,8 +53,9 @@ class SettingFormType extends AbstractType
                 $options += ['attr' => ['rows' => 12]];
             } elseif ($model->getType()->equals(Type::CHOICE()) || $model->getType()->getValue() === 'choice') {
                 $options += [
-                    'placeholder' => 'edit.form.choice_placeholder',
-                    'choices'     => array_values($model->getChoices()) === $model->getChoices() ?
+                    'placeholder'        => 'edit.form.choice_placeholder',
+                    'translation_domain' => 'HarmonySettingsManager',
+                    'choices'            => array_values($model->getChoices()) === $model->getChoices() ?
                         array_combine($model->getChoices(), $model->getChoices()) : $model->getChoices()
                 ];
             } else {
